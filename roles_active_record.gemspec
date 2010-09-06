@@ -122,7 +122,7 @@ Gem::Specification.new do |s|
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_development_dependency(%q<rspec>, ["~> 2.0.0.beta.19"])
       s.add_development_dependency(%q<database_cleaner>, ["~> 0.5.2"])
-      s.add_development_dependency(%q<generator_spec>, ["~> 0.4.5"])
+      s.add_development_dependency(%q<generator-spec>, ["~> 0.4.5"])
       s.add_runtime_dependency(%q<activerecord>, ["~> 3.0.0"])
       s.add_runtime_dependency(%q<activesupport>, ["~> 3.0.0"])
       s.add_runtime_dependency(%q<arel>, ["~> 1.0.0"])
@@ -134,7 +134,7 @@ Gem::Specification.new do |s|
     else
       s.add_dependency(%q<rspec>, ["~> 2.0.0.beta.19"])
       s.add_dependency(%q<database_cleaner>, ["~> 0.5.2"])
-      s.add_dependency(%q<generator_spec>, ["~> 0.4.5"])
+      s.add_dependency(%q<generator-spec>, ["~> 0.4.5"])
       s.add_dependency(%q<activerecord>, ["~> 3.0.0"])
       s.add_dependency(%q<activesupport>, ["~> 3.0.0"])
       s.add_dependency(%q<arel>, ["~> 1.0.0"])
@@ -147,7 +147,7 @@ Gem::Specification.new do |s|
   else
     s.add_dependency(%q<rspec>, ["~> 2.0.0.beta.19"])
     s.add_dependency(%q<database_cleaner>, ["~> 0.5.2"])
-    s.add_dependency(%q<generator_spec>, ["~> 0.4.5"])
+    s.add_dependency(%q<generator-spec>, ["~> 0.4.5"])
     s.add_dependency(%q<activerecord>, ["~> 3.0.0"])
     s.add_dependency(%q<activesupport>, ["~> 3.0.0"])
     s.add_dependency(%q<arel>, ["~> 1.0.0"])
