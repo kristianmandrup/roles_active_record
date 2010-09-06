@@ -46,6 +46,8 @@ Gem::Specification.new do |s|
      "lib/roles_for_active_record.rb",
      "lib/views/_multi_role_selector.erb.html",
      "lib/views/_single_role_selector.erb.html",
+     "roles_active_record.gemspec",
+     "roles_for_ar.gemspec",
      "sandbox/Rakefile",
      "sandbox/add_role_to_users_migration.erb",
      "sandbox/create_roles_migration.erb",
