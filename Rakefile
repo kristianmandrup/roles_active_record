@@ -13,10 +13,10 @@ begin
     gem.add_development_dependency 'database_cleaner'
     gem.add_development_dependency "generator_spec", '~> 0.4.5'
 
-    gem.add_dependency "active_record",   "~> 3.0.0"
+    gem.add_dependency "activerecord",    "~> 3.0.0"
+    gem.add_dependency "activesupport",   "~> 3.0.0"
     gem.add_dependency "arel",            "~> 1.0.0"    
     gem.add_dependency "meta_where",      ">= 0.5.2"
-    gem.add_dependency "active_support",  "~> 3.0.0"
     gem.add_dependency "sugar-high",      "~> 0.2.2"
     gem.add_dependency "require_all",     '~> 1.1.0' 
     gem.add_dependency "sugar-high",      '~> 0.2.3'        
