@@ -1,0 +1,56 @@
+begin
+  require 'jeweler'
+  Jeweler::Tasks.new do |gem|
+    gem.name = "roles_for_ar"
+    gem.summary = %Q{Faciliatates adding a role strategy to your Active Record user model}
+    gem.description = %Q{Faciliatates adding a role strategy to your Active Record user model}
+    gem.email = "kmandrup@gmail.com"
+    gem.homepage = "http://github.com/kristianmandrup/roles_for_dm"
+    gem.authors = ["Kristian Mandrup"]
+    gem.add_development_dependency "rspec", "~> 2.0.0.beta.19" 
+    gem.add_development_dependency "yaml"
+    gem.add_development_dependency "logger"
+    gem.add_development_dependency 'database_cleaner'
+    gem.add_development_dependency "generator_spec", '~> 0.4.5'
+
+    gem.add_dependency "active_record",   "~> 3.0.0"
+    gem.add_dependency "arel",            "~> 1.0.0"    
+    gem.add_dependency "meta_where",      ">= 0.5.2"
+    gem.add_dependency "active_support",  "~> 3.0.0"
+    gem.add_dependency "sugar-high",      "~> 0.2.2"
+    gem.add_dependency "require_all",     '~> 1.1.0' 
+    gem.add_dependency "sugar-high",      '~> 0.2.3'        
+    gem.add_dependency "roles_generic",   '~> 0.2.2'            
+
+    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
+  end
+  Jeweler::GemcutterTasks.new
+rescue LoadError
+  puts "Jeweler (or a dependency) not available. Install it with: gem install jeweler"
+end
+
+# require 'spec/rake/spectask'
+# Spec::Rake::SpecTask.new(:spec) do |spec|
+#   spec.libs << 'lib' << 'spec'
+#   spec.spec_files = FileList['spec/**/*_spec.rb']
+# end
+# 
+# Spec::Rake::SpecTask.new(:rcov) do |spec|
+#   spec.libs << 'lib' << 'spec'
+#   spec.pattern = 'spec/**/*_spec.rb'
+#   spec.rcov = true
+# end
+# 
+# task :spec => :check_dependencies
+# 
+# task :default => :spec
+# 
+# require 'rake/rdoctask'
+# Rake::RDocTask.new do |rdoc|
+#   version = File.exist?('VERSION') ? File.read('VERSION') : ""
+# 
+#   rdoc.rdoc_dir = 'rdoc'
+#   rdoc.title = "roles_for_mm #{version}"
+#   rdoc.rdoc_files.include('README*')
+#   rdoc.rdoc_files.include('lib/**/*.rb')
+# end

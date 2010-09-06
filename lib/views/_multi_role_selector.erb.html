@@ -1,0 +1,5 @@
+<% for role in User::ROLES %>
+  <%= check_box_tag "user[roles][]", role, @user.roles.include?(role) %>
+  <%=h role.humanize %><br />
+<% end %>
+<%= hidden_field_tag "user[roles][]", "" %>
