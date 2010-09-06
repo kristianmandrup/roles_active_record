@@ -9,7 +9,7 @@ begin
     gem.authors = ["Kristian Mandrup"]
     gem.add_development_dependency "rspec", "~> 2.0.0.beta.19" 
     gem.add_development_dependency 'database_cleaner', '~> 0.5.2'
-    gem.add_development_dependency "generator_spec",  '~> 0.4.5'
+    gem.add_development_dependency "generator-spec",  '~> 0.4.5'
 
     gem.add_dependency "activerecord",    "~> 3.0.0"
     gem.add_dependency "activesupport",   "~> 3.0.0"
