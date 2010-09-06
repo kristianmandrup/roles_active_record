@@ -1,9 +1,9 @@
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-    gem.name = "roles_for_ar"
-    gem.summary = %Q{Faciliatates adding a role strategy to your Active Record user model}
-    gem.description = %Q{Faciliatates adding a role strategy to your Active Record user model}
+    gem.name = "roles_active_record"
+    gem.summary = %Q{Implementation of Roles generic API for Active Record}
+    gem.description = %Q{Makes it easy to set a role strategy on your User model in Active Record}
     gem.email = "kmandrup@gmail.com"
     gem.homepage = "http://github.com/kristianmandrup/roles_for_dm"
     gem.authors = ["Kristian Mandrup"]
@@ -28,29 +28,3 @@ begin
 rescue LoadError
   puts "Jeweler (or a dependency) not available. Install it with: gem install jeweler"
 end
-
-# require 'spec/rake/spectask'
-# Spec::Rake::SpecTask.new(:spec) do |spec|
-#   spec.libs << 'lib' << 'spec'
-#   spec.spec_files = FileList['spec/**/*_spec.rb']
-# end
-# 
-# Spec::Rake::SpecTask.new(:rcov) do |spec|
-#   spec.libs << 'lib' << 'spec'
-#   spec.pattern = 'spec/**/*_spec.rb'
-#   spec.rcov = true
-# end
-# 
-# task :spec => :check_dependencies
-# 
-# task :default => :spec
-# 
-# require 'rake/rdoctask'
-# Rake::RDocTask.new do |rdoc|
-#   version = File.exist?('VERSION') ? File.read('VERSION') : ""
-# 
-#   rdoc.rdoc_dir = 'rdoc'
-#   rdoc.title = "roles_for_mm #{version}"
-#   rdoc.rdoc_files.include('README*')
-#   rdoc.rdoc_files.include('lib/**/*.rb')
-# end
