@@ -12,6 +12,9 @@ module ActiveRecord
 
       class_option :roles, :type => :array, :aliases => "-r", :default => [], :desc => "Valid roles"
 
+      class_option :default_roles, :type => :boolean, :default => true, :desc => "Use default roles :admin and :base"
+
+
       def apply_role_strategy
         log.add_logfile
         log.debug "apply_role_strategy for : #{strategy} in model #{name}"
@@ -35,7 +38,7 @@ module ActiveRecord
       end
   
       def default_roles
-        [:admin, :guest]        
+        options[:default_roles] ? [:admin, :guest] : []        
       end
   
       def roles_to_add

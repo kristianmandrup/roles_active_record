@@ -1,12 +1,9 @@
-# require 'generators/migration_helper'
-# require 'generators/role_migrations'
-# require 'auth_assistant/model/user_config'
+require 'migration_assist'
 
 module ActiveRecord 
   module Generators
     class RolesMigrationGenerator < Rails::Generators::NamedBase 
-      include Rails::Generators::MigrationHelper        
-      include RSpec::Rails::App
+      include Rails::Migration::Assist
       
       desc "Generates user role migrations" 
 
@@ -22,7 +19,7 @@ module ActiveRecord
       end
 
       def valid_strategy?
-        if ![:admin_flag, :role_string, :one_role, :many_roles, :roles_mask].include?(strategy.to_sym)
+        if !strategies.include?(strategy.to_sym)
           info "Unknown role strategy #{strategy}"
           raise ArgumentError, "Unknown role strategy #{strategy}"
         end
@@ -37,6 +34,10 @@ module ActiveRecord
       end   
       
       protected                  
+
+      def strategies
+        [:admin_flag, :role_string, :one_role, :many_roles, :roles_mask]          
+      end
        
       def reverse?
         options[:reverse]

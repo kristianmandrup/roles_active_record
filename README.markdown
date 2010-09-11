@@ -19,7 +19,7 @@ It also implements the following Role strategies:
 
 ## Rails generator
 
-Needs some more refactoring (see notes below!)
+Will create admin and guest roles by default
 
 <code>$ rails g active_record:roles User --strategy admin_flag --roles admin guest</code>
 

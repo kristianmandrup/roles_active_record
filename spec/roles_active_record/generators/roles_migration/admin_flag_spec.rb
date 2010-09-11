@@ -1,12 +1,18 @@
-require File.expand_path(File.dirname(__FILE__) + '/../migration_spec_helper')
+require 'migration_spec_helper'
 
 require_generator :active_record => :roles_migration
 
+root_dir = Rails::Migration::Assist.rails_root_dir
+Rails3::Assist::Directory.rails_root = root_dir
+Rails::Migration::Assist.orm = :active_record
+
+puts "root_dir: #{root_dir}"
+
 describe 'roles_migration_generator' do
-  use_orm :active_record  
-  helpers :migration
+  use_orm     :active_record
+  use_helper  :migration
   
-  before :each do              
+  before do              
     setup_generator 'roles_migration_generator' do
       tests ActiveRecord::Generators::RolesMigrationGenerator      
     end    
@@ -15,21 +21,44 @@ describe 'roles_migration_generator' do
   after :each do
   end
     
-  # it "should generate migration 'add_admin_flag_strategy' for role strategy 'admin_flag'" do    
+  it "should generate migration 'add_admin_flag_strategy' for role strategy 'admin_flag'" do    
+    with_generator do |g|
+      remove_migration :add_admin_flag_strategy
+      g.run_generator "User --strategy admin_flag".args
+  
+      puts "ROOT: #{root_dir}"
+  
+      root_dir.should have_migration :add_admin_flag_strategy do |content|
+        content.should have_up do |up|
+          up.should have_change_table :users do |tbl_content|
+            tbl_content.should have_add_column :admin_flag, :boolean
+          end
+        end
+
+        content.should have_down do |down|
+          down.should have_change_table :users do |tbl_content|
+            tbl_content.should have_remove_column :admin_flag
+          end
+        end
+      end      
+    end # with
+  end
+  
+  # it "should generate reverse migration 'remove_admin_flag_strategy' for role strategy 'admin_flag'" do    
   #   with_generator do |g|
-  #     remove_migration :add_admin_flag_strategy
-  #     g.run_generator "User --strategy admin_flag".args
+  #     remove_migration :remove_admin_flag_strategy
+  #     g.run_generator "User --strategy admin_flag --reverse".args
   # 
-  #     g.should generate_migration :add_admin_flag_strategy do |content|
-  #       content.should have_migration :add_admin_flag_strategy do |klass|
-  #         klass.should have_up do |up|
-  #           up.should have_change_table :users do |tbl_content|
+  #     g.should generate_migration :remove_admin_flag_strategy do |content|
+  #       content.should have_migration :remove_admin_flag_strategy do |klass|
+  #         klass.should have_down do |down|
+  #           down.should have_change_table :users do |tbl_content|
   #             tbl_content.should have_add_column :admin_flag, :boolean
   #           end
   #         end
   # 
-  #         klass.should have_down do |down|
-  #           down.should have_change_table :users do |tbl_content|
+  #         klass.should have_up do |up|
+  #           up.should have_change_table :users do |tbl_content|
   #             tbl_content.should have_remove_column :admin_flag
   #           end
   #         end
@@ -37,29 +66,6 @@ describe 'roles_migration_generator' do
   #     end      
   #   end # with
   # end
-  
-  it "should generate reverse migration 'remove_admin_flag_strategy' for role strategy 'admin_flag'" do    
-    with_generator do |g|
-      remove_migration :remove_admin_flag_strategy
-      g.run_generator "User --strategy admin_flag --reverse".args
-  
-      g.should generate_migration :remove_admin_flag_strategy do |content|
-        content.should have_migration :remove_admin_flag_strategy do |klass|
-          klass.should have_down do |down|
-            down.should have_change_table :users do |tbl_content|
-              tbl_content.should have_add_column :admin_flag, :boolean
-            end
-          end
-  
-          klass.should have_up do |up|
-            up.should have_change_table :users do |tbl_content|
-              tbl_content.should have_remove_column :admin_flag
-            end
-          end
-        end
-      end      
-    end # with
-  end
   
 end
 
