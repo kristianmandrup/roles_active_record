@@ -1,46 +1,72 @@
+require 'rails3_artifactor'
+require 'logging_assist'
+
 module ActiveRecord 
   module Generators
-    class RolesGenerator < Rails::Generators::NamedBase
-      desc "Generate roles model for User" 
+    class RolesGenerator < Rails::Generators::NamedBase      
+      desc "Add role strategy to a model" 
       
-      argument :role_strategy, :type => :string, :aliases => "-r", :default => 'inline_role', :desc => "Create roles model for user"
+      class_option :strategy, :type => :string, :aliases => "-s", :default => 'role_string', 
+                   :desc => "Role strategy to use (admin_flag, role_string, roles_string, role_strings, one_role, many_roles, roles_mask)"
 
-      hook_for :orm
-            
-      def self.source_root
-        @source_root ||= File.expand_path("../../templates", __FILE__)
-      end
 
-      def apply_role_strategy   
-        insert_into_model('user', role_strategy_statement)
+      class_option :roles, :type => :array, :aliases => "-r", :default => [], :desc => "Valid roles"
+
+      def apply_role_strategy
+        log.add_logfile
+        log.debug "apply_role_strategy for : #{strategy} in model #{name}"
+        begin
+          insert_into_model name do
+            insertion_text
+          end
+        rescue
+          say "Model #{name} not found"
+        end
       end 
       
       protected                  
 
-      def match_expr
-        /< (.+?)\w+\s/
-      end
+      extend Rails3::Assist::UseMacro
+      use_orm :active_record
+      include Rails::Assist::BasicLogging
 
+      def orm
+        :active_record
+      end
+  
+      def default_roles
+        [:admin, :guest]        
+      end
+  
+      def roles_to_add
+        @roles_to_add ||= default_roles.concat(options[:roles]).to_symbols.uniq
+      end
+  
+      def roles        
+        roles_to_add.map{|r| ":#{r}" }
+      end
+  
       def role_strategy_statement 
-        "role_strategy #{role_strategy}"        
+        "strategy :#{strategy}, :default\n#{role_class_stmt}"
       end
 
-      def role_strategy
-        options[:role_strategy]                
+      def role_class_stmt
+        "  role_class :role" if [:one_role, :many_roles].include? (strategy.to_sym)
       end
-      
-      def model_file(name)                          
-        File.join(Rails.root, "app/models/#{name}.rb")        
+  
+      def roles_statement
+        roles ? "valid_roles_are #{roles.join(', ')}" : ''
       end
-        
-      def insert_into_model(model_name, insert_text)
-        model_name = model_name.to_s
-        file = File.new(model_file(model_name))
-        return if (file.read =~ /#{insert_text}/) 
-        gsub_file model_file(model_name), match_expr do |match|
-          match << insert_text
-        end
-      end              
+  
+      def insertion_text
+        %Q{include Roles::#{orm.to_s.camelize} 
+  #{role_strategy_statement}
+  #{roles_statement}}
+      end
+  
+      def strategy
+        options[:strategy]                
+      end
     end
   end
 end

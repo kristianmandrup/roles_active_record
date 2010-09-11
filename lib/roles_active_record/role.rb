@@ -3,7 +3,7 @@ module Roles::Base
     strategy_class.valid_roles = role_list.to_symbols
     if role_class_name
       role_list.each do |name|
-        res = role_class_name.create(:name => name.to_s)        
+        role_class_name.create(:name => name.to_s)        
       end
     end
   end
