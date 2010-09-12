@@ -1,9 +1,9 @@
-require File.expand_path(File.dirname(__FILE__) + '/../migration_spec_helper')
+require 'migration_spec_helper'
 require_generator :active_record => :roles_migration
 
 describe 'roles_migration_generator' do
   use_orm :active_record  
-  helpers :migration
+  use_helper :migration
   
   before :each do              
     setup_generator 'roles_migration_generator' do
@@ -21,36 +21,29 @@ describe 'roles_migration_generator' do
             
       g.run_generator [:user, %w{--strategy one_role}].args
 
-      g.should generate_migration :add_role_to_users do |content|
-        content.should have_migration :add_role_to_users do |klass|
-          klass.should have_up do |up|
-            up.should have_change_table :users do |tbl_content|
-              tbl_content.should have_add_column :role_id, :integer
-            end
+      # def up          
+      #   create_roles
+      #   add_user_role
+      # end
+      # 
+      # def down      
+      #   drop_roles
+      #   remove_user_role
+      # end
+
+      g.should generate_migration :add_one_role_strategy do |content|
+        content.should have_class_self do |class_self|        
+          class_self.should have_method :up do |up|
+            up.should have_call :create_roles
+            up.should have_call :add_user_role
           end
 
-          klass.should have_down do |down|
-            down.should have_change_table :users do |tbl_content|
-              tbl_content.should have_remove_column :role_id
-            end
+          class_self.should have_method :down do |down|
+            down.should have_call :drop_roles
+            down.should have_call :remove_user_role
           end
         end
-      end      
-
-      g.should generate_migration :create_roles do |content|
-        content.should have_migration :create_roles do |klass|
-          klass.should have_up do |up|
-            up.should have_create_table :roles do |tbl_content|
-              tbl_content.should have_add_column :name, :string
-              tbl_content.should have_timestamps             
-            end
-          end
-
-          klass.should have_down do |down|
-            down.should have_drop_table :roles
-          end
-        end
-      end      
+      end
     end # with
   end
 end
