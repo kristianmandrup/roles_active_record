@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{roles_active_record}
-  s.version = "0.1.0"
+  s.version = "0.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kristian Mandrup"]
-  s.date = %q{2010-09-11}
+  s.date = %q{2010-09-12}
   s.description = %q{Makes it easy to set a role strategy on your User model in Active Record}
   s.email = %q{kmandrup@gmail.com}
   s.extra_rdoc_files = [
@@ -32,8 +32,9 @@ Gem::Specification.new do |s|
      "lib/generators/active_record/roles_migration/templates/add_many_roles_strategy.erb",
      "lib/generators/active_record/roles_migration/templates/add_one_role_strategy.erb",
      "lib/generators/active_record/roles_migration/templates/add_role_string_strategy.erb",
-     "lib/generators/active_record/roles_migration/templates/add_roles_mask_to_users_migration.erb",
+     "lib/generators/active_record/roles_migration/templates/add_roles_mask_strategy.erb",
      "lib/generators/active_record/setup/setup_generator.rb",
+     "lib/roles_active_record.rb",
      "lib/roles_active_record/base.rb",
      "lib/roles_active_record/namespaces.rb",
      "lib/roles_active_record/role.rb",
@@ -43,7 +44,6 @@ Gem::Specification.new do |s|
      "lib/roles_active_record/strategy/single/admin_flag.rb",
      "lib/roles_active_record/strategy/single/one_role.rb",
      "lib/roles_active_record/strategy/single/role_string.rb",
-     "lib/roles_for_active_record.rb",
      "lib/views/_multi_role_selector.erb.html",
      "lib/views/_single_role_selector.erb.html",
      "logging.log",
@@ -64,6 +64,7 @@ Gem::Specification.new do |s|
      "spec/fixtures/many_roles_setup.rb",
      "spec/fixtures/one_role_setup.rb",
      "spec/generator_spec_helper.rb",
+     "spec/migration_spec_helper.rb",
      "spec/migrations/admin_flag/004_add_admin_flag_to_users.rb",
      "spec/migrations/many_roles/002_create_roles.rb",
      "spec/migrations/many_roles/003_create_user_roles.rb",
@@ -73,7 +74,6 @@ Gem::Specification.new do |s|
      "spec/migrations/roles_mask/005_add_roles_mask_to_users.rb",
      "spec/migrations/users/001_create_users.rb",
      "spec/roles_active_record/admin_flag_spec.rb",
-     "spec/roles_active_record/generators/migration_spec_helper.rb",
      "spec/roles_active_record/generators/roles_generator_spec.rb",
      "spec/roles_active_record/generators/roles_migration/admin_flag_spec.rb",
      "spec/roles_active_record/generators/roles_migration/many_roles_spec.rb",
@@ -86,7 +86,14 @@ Gem::Specification.new do |s|
      "spec/roles_active_record/role_string_spec.rb",
      "spec/roles_active_record/roles_mask_spec.rb",
      "spec/spec_helper.rb",
-     "tmp/rails/config/routes.rb"
+     "tmp/rails/app/models/user.rb",
+     "tmp/rails/config/routes.rb",
+     "tmp/rails/db/migrations/20100912101428_add_admin_flag_strategy.rb",
+     "tmp/rails/db/migrations/20100912101429_remove_admin_flag_strategy.rb",
+     "tmp/rails/db/migrations/20100912105055_add_many_roles_strategy.rb",
+     "tmp/rails/db/migrations/20100912105323_add_one_role_strategy.rb",
+     "tmp/rails/db/migrations/20100912110044_add_role_string_strategy.rb",
+     "tmp/rails/db/migrations/20100912110249_add_roles_mask_strategy.rb"
   ]
   s.homepage = %q{http://github.com/kristianmandrup/roles_for_dm}
   s.rdoc_options = ["--charset=UTF-8"]
@@ -97,6 +104,7 @@ Gem::Specification.new do |s|
     "spec/fixtures/many_roles_setup.rb",
      "spec/fixtures/one_role_setup.rb",
      "spec/generator_spec_helper.rb",
+     "spec/migration_spec_helper.rb",
      "spec/migrations/admin_flag/004_add_admin_flag_to_users.rb",
      "spec/migrations/many_roles/002_create_roles.rb",
      "spec/migrations/many_roles/003_create_user_roles.rb",
@@ -106,7 +114,6 @@ Gem::Specification.new do |s|
      "spec/migrations/roles_mask/005_add_roles_mask_to_users.rb",
      "spec/migrations/users/001_create_users.rb",
      "spec/roles_active_record/admin_flag_spec.rb",
-     "spec/roles_active_record/generators/migration_spec_helper.rb",
      "spec/roles_active_record/generators/roles_generator_spec.rb",
      "spec/roles_active_record/generators/roles_migration/admin_flag_spec.rb",
      "spec/roles_active_record/generators/roles_migration/many_roles_spec.rb",
