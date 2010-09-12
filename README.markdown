@@ -48,6 +48,7 @@ Multi role:
 * many_roles
 * roles_mask
 
+_Note_ The strategies *one_role* and *many_roles* both use a separate Role model (roles table). The others use an inline strategy with an attribute in the User model.
 
 ### Admin flag
 
@@ -145,23 +146,35 @@ The following role strategies are included by default. Add your own by adding ex
 * one_role
 * many_roles
           
-_Important:_ 
-
-The generators are a bit rusty and needs to be updated to take advantage of the [rails3_artifactor](http://github.com/kristianmandrup/rails3_artifactor) 
-Please see the [roles mongoid](http://github.com/kristianmandrup/roles_mongoid) for an example. You are most welcome to submit a patch to make it work for AR ;) 
 
 ### Generators
 
 * active_record:roles
 * active_record:roles_migration
 
+*Roles*
+
+Apply :admin_flag Role strategy to User model using default roles :admin and :guest (default)
+
+<code>$ rails g active_record:roles User --strategy admin_flag</code>
+
+Apply :admin_flag Role strategy to User model using default roles and extra role :author
+
+<code>$ rails g active_record:roles_migration User --strategy admin_flag --roles author</code>
+
+Apply :one_role Role strategy to User model without default roles, only with roles :user, :special and :editor
+
+<code>$ rails g active_record:roles_migration User --strategy one_role --roles user special editor --no-default-roles</code>
+
+*Roles Migration*
+
 Example: admin_flag Role strategy - generate migrations and model files
 
-<code>$ rails g active_record:roles User admin_flag</code>
+<code>$ rails g active_record:roles_migration User --strategy admin_flag</code>
 
-Example: admin_flag Role strategy - generate migrations only
+Create reverse migration
 
-<code>$ rails g active_record:roles_migration User admin_flag</code>
+<code>$ rails g active_record:roles_migration User --strategy admin_flag --reverse</code>
 
 ## Note on Patches/Pull Requests
  
