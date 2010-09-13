@@ -1,5 +1,5 @@
-require 'rspec'
-require 'rspec/autorun'
+require 'rspec/core'
+# require 'autotest/rspec2'
 require 'rails'
 require 'active_record'
 require 'arel'
@@ -7,7 +7,7 @@ require 'meta_where'
 require 'yaml'
 require 'logger'
 require 'database_cleaner'
-require 'roles_for_active_record'
+require 'roles_active_record'
 
 module Rails
   def self.config_root_dir
