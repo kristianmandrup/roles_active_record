@@ -15,7 +15,7 @@ begin
     gem.add_dependency "activesupport",   "~> 3.0.0"
     gem.add_dependency "arel",            "~> 1.0.0"    
     gem.add_dependency "meta_where",      "~> 0.9.3"
-    gem.add_dependency "sugar-high",      "~> 0.2.10"
+    gem.add_dependency "sugar-high",      "~> 0.2.11"
     gem.add_dependency "require_all",     '~> 1.2.0' 
     gem.add_dependency "roles_generic",   '~> 0.2.5'            
 
