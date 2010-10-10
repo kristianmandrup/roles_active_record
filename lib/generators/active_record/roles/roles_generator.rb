@@ -16,8 +16,8 @@ module ActiveRecord
 
 
       def apply_role_strategy
-        log.add_logfile
-        log.debug "apply_role_strategy for : #{strategy} in model #{name}"
+        # logger.add_logfile
+        # logger.debug "apply_role_strategy for : #{strategy} in model #{name}"
         begin
           insert_into_model name do
             insertion_text

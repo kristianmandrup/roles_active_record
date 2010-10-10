@@ -11,13 +11,16 @@ begin
     gem.add_development_dependency 'database_cleaner',  '~> 0.5.2'
     gem.add_development_dependency "generator-spec",    '~> 0.6.5'
 
-    gem.add_dependency "activerecord",    "~> 3.0.0"
-    gem.add_dependency "activesupport",   "~> 3.0.0"
-    gem.add_dependency "arel",            "~> 1.0.0"    
-    gem.add_dependency "meta_where",      "~> 0.9.3"
-    gem.add_dependency "sugar-high",      "~> 0.2.11"
-    gem.add_dependency "require_all",     '~> 1.2.0' 
-    gem.add_dependency "roles_generic",   '~> 0.2.5'            
+    gem.add_dependency "activerecord",      "~> 3.0.0"
+    gem.add_dependency "activesupport",     "~> 3.0.0"
+    gem.add_dependency "arel",              "~> 1.0.0"    
+    gem.add_dependency "meta_where",        "~> 0.9.3"
+    gem.add_dependency "sugar-high",        "~> 0.2.11"
+    gem.add_dependency "require_all",       '~> 1.2.0' 
+    gem.add_dependency "roles_generic",     '~> 0.2.5'
+    gem.add_dependency 'rails3_artifactor', '>= 0.2.6'
+    gem.add_dependency 'logging_assist',    '>= 0.1.5'
+    gem.add_dependency 'migration_assist',  '>= 0.1.5'
 
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end

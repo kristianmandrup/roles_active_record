@@ -1,9 +1,10 @@
 require 'migration_assist'
+require 'logging_assist'
 
 module ActiveRecord 
   module Generators
     class RolesMigrationGenerator < Rails::Generators::NamedBase 
-      include Rails::Migration::Assist
+      include Rails3::Migration::Assist
       
       desc "Generates user role migrations" 
 
@@ -20,7 +21,7 @@ module ActiveRecord
 
       def valid_strategy?
         if !strategies.include?(strategy.to_sym)
-          info "Unknown role strategy #{strategy}"
+          logger.info "Unknown role strategy #{strategy}"
           raise ArgumentError, "Unknown role strategy #{strategy}"
         end
       end
@@ -34,6 +35,8 @@ module ActiveRecord
       end   
       
       protected                  
+
+      include Rails::Assist::BasicLogging
 
       def strategies
         [:admin_flag, :role_string, :one_role, :many_roles, :roles_mask]          
