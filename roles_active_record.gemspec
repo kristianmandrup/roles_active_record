@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{roles_active_record}
-  s.version = "0.3.0"
+  s.version = "0.2.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kristian Mandrup"]
-  s.date = %q{2010-10-10}
+  s.date = %q{2010-10-11}
   s.description = %q{Makes it easy to set a role strategy on your User model in Active Record}
   s.email = %q{kmandrup@gmail.com}
   s.extra_rdoc_files = [
@@ -33,7 +33,6 @@ Gem::Specification.new do |s|
      "lib/generators/active_record/roles_migration/templates/add_one_role_strategy.erb",
      "lib/generators/active_record/roles_migration/templates/add_role_string_strategy.erb",
      "lib/generators/active_record/roles_migration/templates/add_roles_mask_strategy.erb",
-     "lib/generators/active_record/setup/setup_generator.rb",
      "lib/roles_active_record.rb",
      "lib/roles_active_record/base.rb",
      "lib/roles_active_record/namespaces.rb",
@@ -73,6 +72,7 @@ Gem::Specification.new do |s|
      "spec/migrations/role_string/002_add_role_string_to_users.rb",
      "spec/migrations/roles_mask/005_add_roles_mask_to_users.rb",
      "spec/migrations/users/001_create_users.rb",
+     "spec/roles_active_record/admin_flag_spec.rb",
      "spec/roles_active_record/generators/roles_generator_spec.rb",
      "spec/roles_active_record/generators/roles_migration/admin_flag_spec.rb",
      "spec/roles_active_record/generators/roles_migration/many_roles_spec.rb",
@@ -80,12 +80,10 @@ Gem::Specification.new do |s|
      "spec/roles_active_record/generators/roles_migration/role_string_spec.rb",
      "spec/roles_active_record/generators/roles_migration/roles_mask_spec.rb",
      "spec/roles_active_record/generators/setup_generator_spec.rb",
-     "spec/roles_active_record/strategy/admin_flag_spec.rb",
-     "spec/roles_active_record/strategy/many_roles_spec.rb",
-     "spec/roles_active_record/strategy/one_role_spec.rb",
-     "spec/roles_active_record/strategy/role_string_spec.rb",
-     "spec/roles_active_record/strategy/roles_mask_spec.rb",
-     "spec/roles_active_record/strategy/user_setup.rb",
+     "spec/roles_active_record/many_roles_spec.rb",
+     "spec/roles_active_record/one_role_spec.rb",
+     "spec/roles_active_record/role_string_spec.rb",
+     "spec/roles_active_record/roles_mask_spec.rb",
      "spec/spec_helper.rb",
      "tmp/rails/app/models/user.rb",
      "tmp/rails/config/routes.rb",
@@ -114,6 +112,7 @@ Gem::Specification.new do |s|
      "spec/migrations/role_string/002_add_role_string_to_users.rb",
      "spec/migrations/roles_mask/005_add_roles_mask_to_users.rb",
      "spec/migrations/users/001_create_users.rb",
+     "spec/roles_active_record/admin_flag_spec.rb",
      "spec/roles_active_record/generators/roles_generator_spec.rb",
      "spec/roles_active_record/generators/roles_migration/admin_flag_spec.rb",
      "spec/roles_active_record/generators/roles_migration/many_roles_spec.rb",
@@ -121,12 +120,10 @@ Gem::Specification.new do |s|
      "spec/roles_active_record/generators/roles_migration/role_string_spec.rb",
      "spec/roles_active_record/generators/roles_migration/roles_mask_spec.rb",
      "spec/roles_active_record/generators/setup_generator_spec.rb",
-     "spec/roles_active_record/strategy/admin_flag_spec.rb",
-     "spec/roles_active_record/strategy/many_roles_spec.rb",
-     "spec/roles_active_record/strategy/one_role_spec.rb",
-     "spec/roles_active_record/strategy/role_string_spec.rb",
-     "spec/roles_active_record/strategy/roles_mask_spec.rb",
-     "spec/roles_active_record/strategy/user_setup.rb",
+     "spec/roles_active_record/many_roles_spec.rb",
+     "spec/roles_active_record/one_role_spec.rb",
+     "spec/roles_active_record/role_string_spec.rb",
+     "spec/roles_active_record/roles_mask_spec.rb",
      "spec/spec_helper.rb"
   ]
 
@@ -145,8 +142,9 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<sugar-high>, ["~> 0.2.11"])
       s.add_runtime_dependency(%q<require_all>, ["~> 1.2.0"])
       s.add_runtime_dependency(%q<roles_generic>, ["~> 0.2.5"])
-      s.add_runtime_dependency(%q<rails3_artifactor>, ["~> 0.2.6"])
-      s.add_runtime_dependency(%q<logging_assist>, ["~> 0.1.5"])
+      s.add_runtime_dependency(%q<rails3_artifactor>, [">= 0.2.6"])
+      s.add_runtime_dependency(%q<logging_assist>, [">= 0.1.5"])
+      s.add_runtime_dependency(%q<migration_assist>, [">= 0.1.5"])
     else
       s.add_dependency(%q<rspec>, [">= 2.0.0.rc"])
       s.add_dependency(%q<database_cleaner>, ["~> 0.5.2"])
@@ -158,8 +156,9 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<sugar-high>, ["~> 0.2.11"])
       s.add_dependency(%q<require_all>, ["~> 1.2.0"])
       s.add_dependency(%q<roles_generic>, ["~> 0.2.5"])
-      s.add_dependency(%q<rails3_artifactor>, ["~> 0.2.6"])
-      s.add_dependency(%q<logging_assist>, ["~> 0.1.5"])
+      s.add_dependency(%q<rails3_artifactor>, [">= 0.2.6"])
+      s.add_dependency(%q<logging_assist>, [">= 0.1.5"])
+      s.add_dependency(%q<migration_assist>, [">= 0.1.5"])
     end
   else
     s.add_dependency(%q<rspec>, [">= 2.0.0.rc"])
@@ -172,8 +171,9 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<sugar-high>, ["~> 0.2.11"])
     s.add_dependency(%q<require_all>, ["~> 1.2.0"])
     s.add_dependency(%q<roles_generic>, ["~> 0.2.5"])
-    s.add_dependency(%q<rails3_artifactor>, ["~> 0.2.6"])
-    s.add_dependency(%q<logging_assist>, ["~> 0.1.5"])
+    s.add_dependency(%q<rails3_artifactor>, [">= 0.2.6"])
+    s.add_dependency(%q<logging_assist>, [">= 0.1.5"])
+    s.add_dependency(%q<migration_assist>, [">= 0.1.5"])
   end
 end
 
