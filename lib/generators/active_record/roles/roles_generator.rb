@@ -31,7 +31,7 @@ module ActiveRecord
 
       extend Rails3::Assist::UseMacro
       use_orm :active_record
-      include Rails::Assist::BasicLogging
+      include Rails3::Assist::BasicLogger
 
       def orm
         :active_record
