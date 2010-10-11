@@ -13,7 +13,7 @@ module Roles::ActiveRecord
 
   module ClassMethods      
     def strategy name, options=nil
-      role_strategy name, options
+      set_role_strategy name, options
     end    
   end
 end
