@@ -2,7 +2,9 @@ module Roles::ActiveRecord
   module Strategy
     module Shared
       def set_role role
-        self.send("#{role_attribute}=", new_role(role))
+        vr = new_role(role)
+        # self.send("#{role_attribute}=", vr)
+        update_attributes(role_attribute => vr)
       end
       alias_method :set_roles, :set_role
 
@@ -21,9 +23,9 @@ module Roles::ActiveRecord
       end
 
       def select_valid_roles *roles
-        puts "select_valid_roles!"
+        # puts "select_valid_roles!"
         roles.flat_uniq.select{|role| valid_role? role }
-        puts "select_valid_roles: #{roles}"
+        # puts "select_valid_roles: #{roles}"
         has_role_class? ? role_class.find_roles(roles).to_a : roles
       end           
     end

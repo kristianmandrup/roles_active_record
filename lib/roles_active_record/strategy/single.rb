@@ -12,8 +12,11 @@ module Roles::ActiveRecord
       include Shared            
       # assigns first valid role from list of roles
       def add_roles *role_names
+        puts "!!! ADD ROLES"
         new_roles = select_valid_roles(role_names)
+        puts "add role - New roles: #{new_roles}"
         self.role = new_roles.first if !new_roles.empty?
+        puts "my new role is: #{self.role} for #{self.name}"
       end
 
       # should remove the current single role (set = nil) 

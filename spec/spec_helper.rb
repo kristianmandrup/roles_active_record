@@ -15,7 +15,9 @@ module Rails
   end
 end
 
-path = File.dirname(__FILE__) + '/db/database.yml'
+SPEC_DIR = File.dirname(__FILE__)
+
+path = SPEC_DIR + '/db/database.yml'
 dbfile = File.open(path)
 dbconfig = YAML::load(dbfile)  
 ActiveRecord::Base.establish_connection(dbconfig)

@@ -9,7 +9,6 @@ class User < ActiveRecord::Base
 end
 
 DatabaseCleaner.start
-migrate('users')
 migrate('admin_flag')
 
 describe "Roles for Active Record: admin_flag" do
