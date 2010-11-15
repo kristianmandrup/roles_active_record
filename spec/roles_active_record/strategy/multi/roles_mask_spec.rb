@@ -13,6 +13,6 @@ describe "Roles for Active Record" do
     migrate('roles_mask')
   end
 
-  load "roles_active_record/strategy/user_setup"
-  load "roles_generic/rspec/api"
+  require "roles_active_record/strategy/user_setup"
+  require "roles_generic/rspec/api"
 end

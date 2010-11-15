@@ -1,5 +1,7 @@
 def default_user_setup
   @guest_user = User.create(:name => 'Guest user')
+  puts "Roleclass: #{@guest_user.role_class}" 
+  
   @guest_user.add_roles :guest      
   @guest_user.save     
 

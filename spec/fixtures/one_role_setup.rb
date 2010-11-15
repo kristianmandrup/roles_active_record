@@ -1,3 +1,5 @@
+puts "ONE ROLE SETUP"
+
 class User < ActiveRecord::Base
   include Roles::ActiveRecord 
   

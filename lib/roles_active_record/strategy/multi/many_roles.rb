@@ -1,3 +1,5 @@
+require 'roles_active_record/strategy/multi'
+
 class Role < ActiveRecord::Base  
   scope :named, lambda{|role_names| where(:name.in => role_names.flatten)}  
   has_many :users, :through => :user_roles
@@ -33,6 +35,8 @@ module RoleStrategy::ActiveRecord
     end
     
     module Implementation
+      include Roles::ActiveRecord::Strategy::Multi      
+      
       def role_attribute
         strategy_class.roles_attribute_name
       end 

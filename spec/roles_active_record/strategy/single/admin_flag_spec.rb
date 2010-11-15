@@ -14,6 +14,7 @@ migrate('admin_flag')
 
 describe "Roles for Active Record: admin_flag" do
   require "roles_active_record/strategy/user_setup.rb"    
-  require "roles_generic/rspec/api"
+  require "roles_active_record/strategy/api"
+  # require "roles_generic/rspec/api"  
 end
 
