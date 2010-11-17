@@ -5,14 +5,19 @@ class User < ActiveRecord::Base
   include Roles::ActiveRecord
   
   strategy :roles_mask, :default
-  valid_roles_are :admin, :guest   
+  valid_roles_are :admin, :guest, :user   
 end
 
-describe "Roles for Active Record" do
-  before do
-    migrate('roles_mask')
-  end
-
-  require "roles_active_record/strategy/user_setup"
-  require "roles_generic/rspec/api"
+def api_migrate
+  migrate('roles_mask')
 end
+
+def api_name
+  :roles_mask
+end
+
+load 'roles_active_record/strategy/api_examples.rb'
+
+
+
+

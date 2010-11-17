@@ -12,11 +12,9 @@ module Roles::ActiveRecord
       include Shared            
       # assigns first valid role from list of roles
       def add_roles *role_names
-        puts "!!! ADD ROLES"
-        new_roles = select_valid_roles(role_names)
-        puts "add role - New roles: #{new_roles}"
-        self.role = new_roles.first if !new_roles.empty?
-        puts "my new role is: #{self.role} for #{self.name}"
+        new_roles = select_valid_roles(role_names) 
+        new_role = new_roles.first if !new_roles.empty?
+        set_role new_role
       end
 
       # should remove the current single role (set = nil) 
@@ -29,7 +27,7 @@ module Roles::ActiveRecord
       
       def roles_list
         raise 'the method #roles should be present' if !respond_to? :roles
-        roles 
+        present_roles(roles)
       end            
     end
   end

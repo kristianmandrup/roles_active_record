@@ -25,6 +25,9 @@ ActiveRecord::Base.logger = Logger.new(STDERR)
 
 DatabaseCleaner.strategy = :truncation
 
+def api_fixture
+end
+
 # $ rake VERSION=0
 
 def migration_folder(name)

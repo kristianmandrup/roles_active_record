@@ -13,8 +13,7 @@ def api_name
   :one_role
 end
 
-describe "Roles for Active Record: one_role" do
-  load 'roles_active_record/strategy/api_examples.rb'
-end
+load 'roles_active_record/strategy/api_examples.rb'
+
 
 

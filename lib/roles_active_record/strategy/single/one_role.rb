@@ -30,27 +30,6 @@ module RoleStrategy::ActiveRecord
     module Implementation
       include Roles::ActiveRecord::Strategy::Single
 
-      # def set_role role
-      #   vr = new_role(role)
-      #   vr.users << self
-      # end
-
-      # assign multiple roles
-      def roles=(*role_names)
-        role_names = extract_roles(role_names)
-        return nil if role_names.empty?
-        valid_roles = select_valid_roles role_names
-        vrole = extract_role valid_roles.first
-        set_role(vrole)
-      end
-
-      def select_valid_roles *roles
-        roles = roles.flat_uniq.select{|role| valid_role? role }
-        valid_roles = has_role_class? ? role_class.find_roles(roles).to_a : roles
-      end
-
-      protected
-
       def new_role role
         role_class.find_role(extract_role role)
       end
@@ -58,6 +37,12 @@ module RoleStrategy::ActiveRecord
       def new_roles *roles
         new_role roles.flatten.first
       end
+
+      def remove_roles *role_names
+        roles = role_names.flat_uniq
+        set_empty_role if roles_diff(roles).empty?
+        true
+      end 
 
       def present_roles *roles
         roles.map{|role| extract_role role}

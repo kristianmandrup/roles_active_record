@@ -8,11 +8,16 @@ class User < ActiveRecord::Base
   valid_roles_are :admin, :guest   
 end
 
-describe "Roles for Active Record" do
-  before do
-    migrate('role_string')
-  end
-  
-  load "roles_active_record/strategy/user_setup"
-  load "roles_generic/rspec/api"
+def api_migrate
+  migrate('role_string')
 end
+
+def api_name
+  :role_string
+end
+
+load 'roles_active_record/strategy/api_examples.rb'
+
+
+
+

@@ -4,5 +4,5 @@ class User < ActiveRecord::Base
   strategy :many_roles, :default
   role_class :role
 
-  valid_roles_are :admin, :guest
+  valid_roles_are :admin, :guest, :user
 end

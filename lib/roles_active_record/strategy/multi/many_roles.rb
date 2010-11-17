@@ -1,15 +1,15 @@
 require 'roles_active_record/strategy/multi'
 
-class Role < ActiveRecord::Base  
-  scope :named, lambda{|role_names| where(:name.in => role_names.flatten)}  
+class Role < ActiveRecord::Base
+  scope :named, lambda{|role_names| where(:name.in => role_names.flatten)}
   has_many :users, :through => :user_roles
-  has_many :user_roles      
-end  
+  has_many :user_roles
+end
 
-class UserRole < ActiveRecord::Base  
+class UserRole < ActiveRecord::Base
   belongs_to :user
   belongs_to :role
-end  
+end
 
 module RoleStrategy::ActiveRecord
   module ManyRoles
@@ -19,60 +19,53 @@ module RoleStrategy::ActiveRecord
 
     def self.included base
       base.extend Roles::Generic::Role::ClassMethods
-      base.extend ClassMethods            
+      base.extend ClassMethods
       base.has_many :many_roles, :through => :user_roles, :source => :role
-      base.has_many :user_roles    
+      base.has_many :user_roles
     end
 
-    module ClassMethods    
-      def in_role(role_name)                          
-        in_roles(role_name)
+    module ClassMethods
+      def in_role(role_name)
+        in_any_role(role_name)
       end
 
-      def in_roles(*role_names)                          
-        joins(:many_roles) & Role.named(role_names)
+      def in_any_role(*role_names)
+        joins(:many_roles) & Role.named(role_names.to_strings)
       end
     end
-    
+
     module Implementation
-      include Roles::ActiveRecord::Strategy::Multi      
-      
-      def role_attribute
-        strategy_class.roles_attribute_name
-      end 
-      
-      # assign roles
-      def roles=(*_roles)  
-        _roles = get_roles(_roles)
-        return nil if _roles.none?
+      include Roles::ActiveRecord::Strategy::Multi
 
-        role_relations = role_class.find_roles(_roles) 
-        self.send("#{role_attribute}=", role_relations)
-        save
+      # assign multiple roles
+      def roles=(*role_names)
+        puts "Assign roles #{role_names}"        
+        role_names = role_names.flat_uniq
+        role_names = extract_roles(role_names)
+        return nil if role_names.empty?
+        puts "role names #{role_names}"
+        valids = role_class.find_roles(role_names).to_a
+        puts "valids: #{valids}"
+        vrs = select_valid_roles role_names
+        puts "Set valid roles #{vrs}"
+        set_roles(vrs)
       end
 
-      def add_roles(*_roles)  
-        _roles = get_roles(_roles)
-        return nil if _roles.none?                
 
-        role_relations = role_class.find_roles(_roles)
-        puts "role_relations: #{role_relations.inspect}"
-        self.send(role_attribute) << role_relations
-        save
+      def new_roles *role_names
+        role_class.find_roles(extract_roles role_names)
       end
 
-      # query assigned roles
-      def roles
-        self.send(role_attribute)
+      def present_roles roles_names
+        roles_names.to_a.map{|role| role.name.to_s.to_sym}
       end
 
-      def roles_list     
-        [roles].flatten.map{|r| r.name }.compact.to_symbols
+      def set_empty_roles
+        self.send("#{role_attribute}=", [])
       end
-    end 
-    
+    end
+
     extend Roles::Generic::User::Configuration
-    configure :type => :role_class    
+    configure :type => :role_class
   end
 end
-
