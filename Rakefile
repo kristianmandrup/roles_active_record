@@ -8,8 +8,8 @@ begin
     gem.homepage = "http://github.com/kristianmandrup/roles_for_dm"
     gem.authors = ["Kristian Mandrup"]
     gem.add_development_dependency "rspec",             '>= 2.0'
-    gem.add_development_dependency 'database_cleaner',  '=> 0.5'
-    gem.add_development_dependency "generator-spec",    '=> 0.7.0'
+    gem.add_development_dependency 'database_cleaner',  '>= 0.5'
+    gem.add_development_dependency "generator-spec",    '>= 0.7.0'
 
     gem.add_dependency "activerecord",    "~> 3.0"
     gem.add_dependency "activesupport",   "~> 3.0"
