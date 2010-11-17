@@ -33,15 +33,12 @@ module RoleStrategy::ActiveRecord
         role.admin?
       end
       
-      def new_roles *roles
-        new_role roles.flatten.first
-      end      
-      
       def get_role
         self.send(role_attribute) ? strategy_class.admin_role_key : strategy_class.default_role_key
       end 
       
       def present_roles *roles
+        roles = roles.flat_uniq
         roles.map{|role| role ? :admin : :guest}
       end   
       

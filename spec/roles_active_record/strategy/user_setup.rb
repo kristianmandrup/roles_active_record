@@ -10,11 +10,11 @@ def default_user_setup
   @normal_user.roles = :guest, :user
   @normal_user.save  
   
-  puts "Normal roles: #{@normal_user.roles_list}"
+  puts "Normal roles: #{@normal_user.roles_list}, #{@normal_user.inspect}"
   
   @admin_user = User.create(:name => 'Admin user')
   @admin_user.roles = :admin            
   @admin_user.save
   
-  puts "Admin roles: #{@admin_user.roles_list}"  
+  puts "Admin roles: #{@admin_user.roles_list}, #{@admin_user.inspect}"  
 end

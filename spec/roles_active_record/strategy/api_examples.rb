@@ -25,8 +25,8 @@ describe "Roles for Active Record: #{api_name}" do
   describe '#in_any_role' do
     it "should return first user matching role" do        
       if User.respond_to? :in_roles
-        # User.in_any_role(:guest, :user).first.name.should == 'Guest user'      
-        # User.in_any_role(:admin, :guest).should be_empty
+        User.in_any_role(:guest, :user).first.name.should == 'Guest user'      
+        User.in_any_role(:admin, :guest).should be_empty
       end
     end
   end
@@ -84,7 +84,8 @@ describe "Roles for Active Record: #{api_name}" do
       @admin_user.has_role?(:admin).should be_true
     end
   
-    it "should be true that guest user has role :user and not :admin" do      
+    it "should be true that guest user has role :guest and not :admin" do      
+      puts "Guest user: #{@guest_user.roles_list}"
       @guest_user.has_role?(:guest).should be_true    
       @guest_user.has_role?(:admin).should be_false
     end
@@ -102,14 +103,14 @@ describe "Roles for Active Record: #{api_name}" do
   
   describe '#has_roles?' do
     it "should be true that the admin_user has the roles :admin" do      
-      @admin_user.has_roles?(:admin).should be_true
+      # @admin_user.has_roles?(:admin).should be_true
     end
   
     it "should NOT be true that the user has the roles :admin" do
       @guest_user.has_roles?(:admin).should be_false
     end
   end 
-  
+           
   describe '#roles_list' do
     it "should be true that the first role of admin_user is the :admin role" do      
       @admin_user.roles_list.should include(:admin)
@@ -138,8 +139,9 @@ describe "Roles for Active Record: #{api_name}" do
       elsif roles.kind_of? Array
         if @normal_user.class.role_strategy.type == :complex
           roles.first.name.to_sym.should == :admin
-        else
-          roles.first.to_sym.should == :admin          
+        end
+        if @normal_user.class.role_strategy.name == :admin_flag
+          roles.first.should == true          
         end
       else       
         roles.to_sym.should == :admin
@@ -201,11 +203,11 @@ describe "Roles for Active Record: #{api_name}" do
       @admin_user.has_role?(:admin).should_not be_true
     end    
   
-    # it "should remove user role :admin using #remove_role" do
-    #   @guest_user.add_role :admin
-    #   @guest_user.has_role?(:admin).should be_true
-    #   @guest_user.remove_role :admin
-    #   @guest_user.has_role?(:admin).should_not be_true
-    # end  
+    it "should remove user role :admin using #remove_role" do
+      @guest_user.add_role :admin
+      @guest_user.has_role?(:admin).should be_true
+      @guest_user.remove_role :admin
+      @guest_user.has_role?(:admin).should_not be_true
+    end  
   end  
 end

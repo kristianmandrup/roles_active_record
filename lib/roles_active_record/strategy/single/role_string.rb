@@ -37,6 +37,7 @@ module RoleStrategy::ActiveRecord
       end
       
       def present_role role
+        return role if role.kind_of? Array
         role.split(',').map(&:to_sym)
       end
 

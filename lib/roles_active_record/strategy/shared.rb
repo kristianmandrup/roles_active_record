@@ -10,17 +10,12 @@ module Roles::ActiveRecord
 
       def get_role
         r = self.send(role_attribute)
-        respond_to?(:present_role) ? present_role(r) : r
+        # respond_to?(:present_role) ? present_role(r) : r
       end
 
       def get_roles
         r = self.send(role_attribute)
-        # respond_to?(:present_roles) ? present_roles(r) : r
       end
-
-      # def roles_diff *roles
-      #   self.roles_list - extract_roles(roles.flat_uniq)
-      # end
 
       def select_valid_roles *roles
         roles.flat_uniq.select{|role| valid_role? role }
