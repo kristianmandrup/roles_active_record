@@ -1,7 +1,9 @@
-class Role < ActiveRecord::Base  
-  scope :named, lambda{|role_names| where(:name.in => role_names.flatten)}  
-  belongs_to :user
-end  
+require 'roles_active_record/strategy/single'
+
+class Role < ActiveRecord::Base
+  scope :named, lambda{|role_names| where(:name.in => role_names.flatten)}
+  has_many :users
+end
 
 module RoleStrategy::ActiveRecord
   module OneRole
@@ -11,40 +13,47 @@ module RoleStrategy::ActiveRecord
 
     def self.included base
       base.extend Roles::Generic::Role::ClassMethods
-      base.extend ClassMethods            
-      base.has_one :one_role, :foreign_key => :role_id, :class_name => 'Role'      
+      base.extend ClassMethods
+      base.belongs_to :one_role, :foreign_key => :role_id, :class_name => 'Role'
     end
 
-    module ClassMethods    
-      def in_role(role_name)                          
-        in_roles(role_name)
+    module ClassMethods
+      def in_role(role_name)
+        in_any_role(role_name)
       end
 
-      def in_roles(*role_names)                          
+      def in_any_role(*role_names)
         joins(:one_role) & Role.named(role_names)
       end
     end
 
-    module Implementation      
-      # assign roles
-      def roles=(*_roles)      
-        _roles = get_roles(_roles)
-        return nil if _roles.none?                
+    module Implementation
+      include Roles::ActiveRecord::Strategy::Single
 
-        role_relation = role_class.find_role(_roles.first) 
-        self.send("#{role_attribute}=", role_relation)
+      def new_role role
+        role_class.find_role(extract_role role)
       end
-      alias_method :role=, :roles=
-      
-      # query assigned roles
-      def roles
-        [self.send(role_attribute).name.to_sym]
+
+      def new_roles *roles
+        new_role roles.flatten.first
       end
-      alias_method :roles_list, :roles
-      
+
+      def remove_roles *role_names
+        roles = role_names.flat_uniq
+        set_empty_role if roles_diff(roles).empty?
+        true
+      end 
+
+      def present_roles *roles
+        roles.map{|role| extract_role role}
+      end
+
+      def set_empty_role
+        self.send("#{role_attribute}=", nil)
+      end
     end
 
     extend Roles::Generic::User::Configuration
-    configure :num => :single, :type => :role_class    
-  end  
+    configure :num => :single, :type => :role_class
+  end
 end
