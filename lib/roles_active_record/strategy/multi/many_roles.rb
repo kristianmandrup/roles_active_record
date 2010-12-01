@@ -39,18 +39,13 @@ module RoleStrategy::ActiveRecord
 
       # assign multiple roles
       def roles=(*role_names)
-        puts "Assign roles #{role_names}"        
         role_names = role_names.flat_uniq
         role_names = extract_roles(role_names)
         return nil if role_names.empty?
-        puts "role names #{role_names}"
         valids = role_class.find_roles(role_names).to_a
-        puts "valids: #{valids}"
         vrs = select_valid_roles role_names
-        puts "Set valid roles #{vrs}"
         set_roles(vrs)
       end
-
 
       def new_roles *role_names
         role_class.find_roles(extract_roles role_names)

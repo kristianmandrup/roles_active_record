@@ -45,7 +45,6 @@ module RoleStrategy::ActiveRecord
       def set_empty_role
         self.send("#{role_attribute}=", false)
       end      
-
     end # Implementation
     
     extend Roles::Generic::User::Configuration
