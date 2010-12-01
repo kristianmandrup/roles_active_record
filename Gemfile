@@ -1,7 +1,7 @@
 source :rubygems
 
-gem "active_record",      ">= 3.0.1"
-gem "active_support",     ">= 3.0.1"
+gem "activerecord",      ">= 3.0.1"
+gem "activesupport",     ">= 3.0.1"
 gem "arel",               ">= 2.0"    
 gem "meta_where",         ">= 0.9.9"
 gem "sugar-high",         "~> 0.3.0"
