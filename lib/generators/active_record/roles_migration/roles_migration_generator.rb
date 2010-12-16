@@ -39,12 +39,16 @@ module ActiveRecord
         logger.debug "Create migration for role_strategy: #{strategy}"
         migration_name = "add_#{strategy}_strategy"
         target_migration_name = reverse? ? reverse_migration_name(migration_name) : migration_name
-        migration_template "#{migration_name}.erb", "db/migrations/#{target_migration_name}" 
+        migration_template "#{migration_name}.erb", "db/migrate/#{target_migration_name}" 
         generated_migration = latest_migration_file(migration_dir, target_migration_name)
         reverse_migration!(generated_migration) if generated_migration && reverse?
-      end   
+      end
 
       include Rails3::Assist::BasicLogger
+
+      def logfile
+        options[:logfile]
+      end
 
       def strategies
         [:admin_flag, :role_string, :one_role, :many_roles, :roles_mask]          
