@@ -4,6 +4,7 @@ class AddOneRoleStrategy < ActiveRecord::Migration
     def up          
       create_roles
       add_user_role
+      insert_roles
     end
 
     def down      
@@ -35,6 +36,12 @@ class AddOneRoleStrategy < ActiveRecord::Migration
 
     def drop_roles
       drop_table :roles
+    end
+
+    def insert_roles
+      <%- roles_to_add.each do |role| -%>
+      Role.create!(:name => '<%= role %>')
+      <%- end -%>
     end
   end
 end

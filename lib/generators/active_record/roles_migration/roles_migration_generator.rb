@@ -13,6 +13,8 @@ module ActiveRecord
       class_option :strategy, :type => :string, :aliases => "-s", :default => 'inline_role', 
                    :desc => "Role strategy to use (admin_flag, role_string, one_role, many_roles, roles_mask)"
 
+      class_option :roles, :type => :array, :aliases => "-r", :default => [], :desc => "Valid roles"
+      class_option :default_roles, :type => :boolean, :default => true, :desc => "Use default roles :admin and :base"
       class_option :logfile, :type => :string,   :default => nil,   :desc => "Logfile location"
       class_option :reverse, :type => :boolean, :alias => "-r", :default => false, :desc => "Create a remove migration for reversing a strategy"
 
@@ -33,6 +35,14 @@ module ActiveRecord
           logger.info "Unknown role strategy #{strategy}"
           raise ArgumentError, "Unknown role strategy #{strategy}"
         end
+      end
+
+      def default_roles
+        options[:default_roles] ? [:admin, :guest] : []
+      end
+
+      def roles_to_add
+        @roles_to_add ||= default_roles.concat(options[:roles]).to_symbols.uniq
       end
 
       def run_migration            

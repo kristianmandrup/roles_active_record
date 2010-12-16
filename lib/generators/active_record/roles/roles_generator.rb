@@ -11,7 +11,6 @@ module ActiveRecord
       class_option :strategy, :type => :string, :aliases => "-s", :default => 'role_string', 
                    :desc => "Role strategy to use (admin_flag, role_string, roles_string, role_strings, one_role, many_roles, roles_mask)"
 
-
       class_option :roles, :type => :array, :aliases => "-r", :default => [], :desc => "Valid roles"
       class_option :default_roles, :type => :boolean, :default => true, :desc => "Use default roles :admin and :base"
       class_option :logfile, :type => :string,   :default => nil,   :desc => "Logfile location"
