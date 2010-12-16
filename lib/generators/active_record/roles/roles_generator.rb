@@ -72,11 +72,11 @@ module ActiveRecord
       end
 
       def role_class_stmt
-        "  role_class :role" if [:one_role, :many_roles].include? (strategy.to_sym)
+        "  role_class :role" if [:one_role, :many_roles].include?(strategy.to_sym)
       end
     
       def insertion_text
-        %Q{include Roles::#{orm.to_s.camelize} 
+        %Q{include Roles::#{orm.to_s.camelize}
   #{role_strategy_statement}
   #{roles_statement}}
       end
