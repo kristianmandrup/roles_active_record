@@ -23,6 +23,23 @@ dbconfig = YAML::load(dbfile)
 ActiveRecord::Base.establish_connection(dbconfig)
 ActiveRecord::Base.logger = Logger.new(STDERR)
 
+# Attempts at trying to make database_cleaner accept another location for database.yml
+# ------------------------------------------------------------------------------------
+
+# module ActiveRecord
+#   def self.config_file_location 
+#     File.dirname(__FILE__) + '/db/database.yml'
+#   end
+# end
+
+# module DatabaseCleaner
+#   module ActiveRecord
+#     def self.config_file_location
+#       "#{DatabaseCleaner.app_root}/spec/db/database.yml"
+#     end
+#   end
+# end
+
 DatabaseCleaner.strategy = :truncation
 
 def api_fixture
