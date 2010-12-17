@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{roles_active_record}
-  s.version = "0.3.3"
+  s.version = "0.3.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kristian Mandrup"]
@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
     "README.markdown",
     "Rakefile",
     "VERSION",
+    "config/database.yml",
     "development.sqlite3",
     "lib/generators/active_record/roles/roles_generator.rb",
     "lib/generators/active_record/roles_migration/roles_migration_generator.rb",
