@@ -3,6 +3,7 @@ require 'roles_active_record/strategy/single'
 class Role < ActiveRecord::Base
   scope :named, lambda{|role_names| where(:name.in => role_names.flatten)}
   has_many :users
+  validates :name, :uniqueness => true  
 end
 
 module RoleStrategy::ActiveRecord

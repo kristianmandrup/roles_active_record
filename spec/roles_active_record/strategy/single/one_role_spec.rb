@@ -14,6 +14,3 @@ def api_name
 end
 
 load 'roles_active_record/strategy/api_examples.rb'
-
-
-

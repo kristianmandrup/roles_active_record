@@ -1,13 +1,13 @@
 class AddRoleStringStrategy < ActiveRecord::Migration
   def self.up           
     change_table :<%= table_name %> do |t|
-      t.string :role, :default => 'guest'
+      t.string :role_string, :default => 'guest', :null => false
     end
   end
 
   def self.down
     change_table :<%= table_name %> do |t|
-      t.remove :role
+      t.remove :role_string
     end
   end
 end

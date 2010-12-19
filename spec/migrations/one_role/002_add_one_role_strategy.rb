@@ -18,17 +18,16 @@ class AddOneRoleStrategy < ActiveRecord::Migration
     protected
 
     def add_user_role
-      change_table :<%= table_name %> do |t|
+      change_table :users do |t|
         t.integer :role_id
       end
     end
 
     def remove_user_role
-      change_table :<%= table_name %> do |t|
+      change_table :users do |t|
         t.remove :role_id
       end
     end
-
 
     def create_roles
       create_table :roles do |t|
@@ -42,12 +41,12 @@ class AddOneRoleStrategy < ActiveRecord::Migration
     end
 
     def insert_roles
-      <%- roles_to_add.each do |role| -%>
+      roles_to_add.each do |role|         
         begin
-          Role.create(:name => '<%= role %>')
+          Role.create(:name => "#{role}") # if !Role.where(:name => name.to_s).first
         rescue
         end
-      <%- end -%>
+      end
     end
   end
 end

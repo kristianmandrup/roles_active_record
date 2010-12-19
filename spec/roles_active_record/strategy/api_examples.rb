@@ -209,5 +209,5 @@ describe "Roles for Active Record: #{api_name}" do
       @guest_user.remove_role :admin
       @guest_user.has_role?(:admin).should_not be_true
     end  
-  end  
+  end
 end

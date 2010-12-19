@@ -1,13 +1,6 @@
 require 'spec_helper'
 use_roles_strategy :many_roles
 
-class User < ActiveRecord::Base    
-  include Roles::ActiveRecord
-  
-  strategy :many_roles, :default
-  valid_roles_are :admin, :guest, :user   
-end
-
 def api_migrate
   migrate('many_roles')
 end

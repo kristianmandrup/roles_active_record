@@ -20,7 +20,7 @@ module RoleStrategy::ActiveRecord
       end        
       
       def in_any_role(*role_names)
-        where(:role_attribute.in => role_names)
+        where(role_attribute.in => role_names)
       end      
     end
     

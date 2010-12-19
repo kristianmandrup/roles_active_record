@@ -2,12 +2,13 @@ module Roles::Base
   def valid_roles_are(*role_list)
     strategy_class.valid_roles = role_list.to_symbols
     if role_class_name
-      "Create Roles: #{role_list}"
       role_list.each do |name|
-        role_class_name.create(:name => name.to_s)        
+        begin
+          role_class_name.create(:name => name.to_s) # if !role_class_name.where(:name => name.to_s).first
+        rescue
+          puts "Role name: #{name} is a duplicate"
+        end
       end
-    else
-      "Using Inline roles"
     end
   end
 end
