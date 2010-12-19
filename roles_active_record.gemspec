@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{roles_active_record}
-  s.version = "0.3.4"
+  s.version = "0.3.5"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kristian Mandrup"]
-  s.date = %q{2010-12-17}
+  s.date = %q{2010-12-19}
   s.description = %q{Makes it easy to set a role strategy on your User model in Active Record}
   s.email = %q{kmandrup@gmail.com}
   s.extra_rdoc_files = [
@@ -63,14 +63,15 @@ Gem::Specification.new do |s|
     "sandbox/test.rb",
     "spec/db/database.yml",
     "spec/fixtures/many_roles_setup.rb",
+    "spec/fixtures/many_roles_setup_unique_check.rb",
     "spec/fixtures/one_role_setup.rb",
+    "spec/fixtures/one_role_setup_unique_check.rb",
     "spec/generator_spec_helper.rb",
     "spec/migration_spec_helper.rb",
     "spec/migrations/admin_flag/004_add_admin_flag_to_users.rb",
     "spec/migrations/many_roles/002_create_roles.rb",
     "spec/migrations/many_roles/003_create_user_roles.rb",
-    "spec/migrations/one_role/002_create_roles.rb",
-    "spec/migrations/one_role/003_add_role_to_users.rb",
+    "spec/migrations/one_role/002_add_one_role_strategy.rb",
     "spec/migrations/role_string/002_add_role_string_to_users.rb",
     "spec/migrations/roles_mask/005_add_roles_mask_to_users.rb",
     "spec/migrations/users/001_create_users.rb",
@@ -84,9 +85,11 @@ Gem::Specification.new do |s|
     "spec/roles_active_record/strategy/api.rb",
     "spec/roles_active_record/strategy/api_examples.rb",
     "spec/roles_active_record/strategy/multi/many_roles_spec.rb",
+    "spec/roles_active_record/strategy/multi/many_roles_unique_spec.rb",
     "spec/roles_active_record/strategy/multi/roles_mask_spec.rb",
     "spec/roles_active_record/strategy/single/admin_flag_spec.rb",
     "spec/roles_active_record/strategy/single/one_role_spec.rb",
+    "spec/roles_active_record/strategy/single/one_role_unique_spec.rb",
     "spec/roles_active_record/strategy/single/role_string_spec.rb",
     "spec/roles_active_record/strategy/user_setup.rb",
     "spec/spec_helper.rb",
@@ -105,14 +108,15 @@ Gem::Specification.new do |s|
   s.summary = %q{Implementation of Roles generic API for Active Record}
   s.test_files = [
     "spec/fixtures/many_roles_setup.rb",
+    "spec/fixtures/many_roles_setup_unique_check.rb",
     "spec/fixtures/one_role_setup.rb",
+    "spec/fixtures/one_role_setup_unique_check.rb",
     "spec/generator_spec_helper.rb",
     "spec/migration_spec_helper.rb",
     "spec/migrations/admin_flag/004_add_admin_flag_to_users.rb",
     "spec/migrations/many_roles/002_create_roles.rb",
     "spec/migrations/many_roles/003_create_user_roles.rb",
-    "spec/migrations/one_role/002_create_roles.rb",
-    "spec/migrations/one_role/003_add_role_to_users.rb",
+    "spec/migrations/one_role/002_add_one_role_strategy.rb",
     "spec/migrations/role_string/002_add_role_string_to_users.rb",
     "spec/migrations/roles_mask/005_add_roles_mask_to_users.rb",
     "spec/migrations/users/001_create_users.rb",
@@ -126,9 +130,11 @@ Gem::Specification.new do |s|
     "spec/roles_active_record/strategy/api.rb",
     "spec/roles_active_record/strategy/api_examples.rb",
     "spec/roles_active_record/strategy/multi/many_roles_spec.rb",
+    "spec/roles_active_record/strategy/multi/many_roles_unique_spec.rb",
     "spec/roles_active_record/strategy/multi/roles_mask_spec.rb",
     "spec/roles_active_record/strategy/single/admin_flag_spec.rb",
     "spec/roles_active_record/strategy/single/one_role_spec.rb",
+    "spec/roles_active_record/strategy/single/one_role_unique_spec.rb",
     "spec/roles_active_record/strategy/single/role_string_spec.rb",
     "spec/roles_active_record/strategy/user_setup.rb",
     "spec/spec_helper.rb"
