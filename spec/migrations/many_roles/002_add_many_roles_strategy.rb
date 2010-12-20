@@ -6,7 +6,7 @@ class AddManyRolesStrategy < ActiveRecord::Migration
       create_user_roles
       add_index :roles, :name, :unique => true      
       
-      insert_roles
+      # insert_roles
     end
 
     def down      
@@ -19,15 +19,15 @@ class AddManyRolesStrategy < ActiveRecord::Migration
     protected
 
     def create_user_roles
-      create_table :<%= table_name.singularize %>_roles do |t|
-        t.integer :<%= table_name.singularize %>_id
+      create_table :user_roles do |t|
+        t.integer :user_id
         t.integer :role_id
         t.timestamps
       end
     end
 
     def drop_user_roles
-      drop_table :<%= table_name.singularize %>_roles
+      drop_table :user_roles
     end
 
 
@@ -43,12 +43,12 @@ class AddManyRolesStrategy < ActiveRecord::Migration
     end
     
     def insert_roles
-      <%- roles_to_add.each do |role| -%>
+      roles_to_add.each do |role|
         begin
-          Role.create(:name => '<%= role %>')
+          Role.create(:name => "#{role}")
         rescue
         end
-      <%- end -%>
+      end
     end    
   end
 end

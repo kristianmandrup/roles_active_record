@@ -5,7 +5,7 @@ class AddOneRoleStrategy < ActiveRecord::Migration
       create_roles
       add_user_role      
       add_index :roles, :name, :unique => true
-      # insert_roles      
+      insert_roles      
     end
 
     def down      

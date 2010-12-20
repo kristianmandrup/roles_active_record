@@ -1,13 +1,13 @@
-class AddRolesMaskToUsers < ActiveRecord::Migration
+class AddRoleStringStrategy < ActiveRecord::Migration
   def self.up           
     change_table :users do |t|
-      t.integer :roles_mask, :default => 0
+      t.string :role_string, :default => 'guest'
     end
   end
 
   def self.down
     change_table :users do |t|
-      t.remove :roles_mask
+      t.remove :role_string
     end
   end
 end
