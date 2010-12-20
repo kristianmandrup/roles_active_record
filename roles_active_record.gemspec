@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{roles_active_record}
-  s.version = "0.3.5"
+  s.version = "0.3.6"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kristian Mandrup"]
-  s.date = %q{2010-12-19}
+  s.date = %q{2010-12-20}
   s.description = %q{Makes it easy to set a role strategy on your User model in Active Record}
   s.email = %q{kmandrup@gmail.com}
   s.extra_rdoc_files = [
@@ -68,12 +68,11 @@ Gem::Specification.new do |s|
     "spec/fixtures/one_role_setup_unique_check.rb",
     "spec/generator_spec_helper.rb",
     "spec/migration_spec_helper.rb",
-    "spec/migrations/admin_flag/004_add_admin_flag_to_users.rb",
-    "spec/migrations/many_roles/002_create_roles.rb",
-    "spec/migrations/many_roles/003_create_user_roles.rb",
+    "spec/migrations/admin_flag/002_add_admin_flag_strategy.rb",
+    "spec/migrations/many_roles/002_add_many_roles_strategy.rb",
     "spec/migrations/one_role/002_add_one_role_strategy.rb",
-    "spec/migrations/role_string/002_add_role_string_to_users.rb",
-    "spec/migrations/roles_mask/005_add_roles_mask_to_users.rb",
+    "spec/migrations/role_string/002_add_role_string_strategy.rb",
+    "spec/migrations/roles_mask/002_add_roles_mask_strategy.rb",
     "spec/migrations/users/001_create_users.rb",
     "spec/roles_active_record/generators/roles_generator_spec.rb",
     "spec/roles_active_record/generators/roles_migration/admin_flag_spec.rb",
@@ -113,12 +112,11 @@ Gem::Specification.new do |s|
     "spec/fixtures/one_role_setup_unique_check.rb",
     "spec/generator_spec_helper.rb",
     "spec/migration_spec_helper.rb",
-    "spec/migrations/admin_flag/004_add_admin_flag_to_users.rb",
-    "spec/migrations/many_roles/002_create_roles.rb",
-    "spec/migrations/many_roles/003_create_user_roles.rb",
+    "spec/migrations/admin_flag/002_add_admin_flag_strategy.rb",
+    "spec/migrations/many_roles/002_add_many_roles_strategy.rb",
     "spec/migrations/one_role/002_add_one_role_strategy.rb",
-    "spec/migrations/role_string/002_add_role_string_to_users.rb",
-    "spec/migrations/roles_mask/005_add_roles_mask_to_users.rb",
+    "spec/migrations/role_string/002_add_role_string_strategy.rb",
+    "spec/migrations/roles_mask/002_add_roles_mask_strategy.rb",
     "spec/migrations/users/001_create_users.rb",
     "spec/roles_active_record/generators/roles_generator_spec.rb",
     "spec/roles_active_record/generators/roles_migration/admin_flag_spec.rb",
