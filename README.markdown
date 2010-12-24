@@ -6,13 +6,28 @@ Roles for Active Record is a full AR implementation of the [Roles generic API](h
 
 <code>gem install roles_active_record</code>
 
+## Install in Rails app
+
+Insert in Gemfile:
+
+<code>gem 'roles_active_record'</code>
+
+Run <code>$ bundle install</code> from terminal
+
+Alternatively install using [Cream](http://github.com/kristianmandrup/cream)
+
 ## Role strategies
 
 The following Role strategies are available for Active Record:
 
+Inline attribute on User
+
 * admin_flag
 * roles_mask
 * role_string
+
+Reference to Role
+
 * many_roles
 * one_role
 
@@ -34,7 +49,7 @@ Example: admin_flag Role strategy (generate migrations only)
 
 <code>$ rails g active_record:roles_migration User admin_flag</code>
 
-## Example : admin_flag
+## Example: admin_flag
 
 :admin_flag strategy configuration:
 <pre>use_roles_strategy :admin_flag
