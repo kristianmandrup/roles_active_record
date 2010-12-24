@@ -33,25 +33,9 @@ Reference to Role
 
 The strategies :one_role and :many_roles employ a separate Role model (table), the other strategies all use an inline attribute on the User model. 
 
-## Rails generator
+## Strategy: admin_flag
 
-The Roles Generator will create :admin and :guest roles by default
-
-<code>$ rails g active_record:roles User --strategy admin_flag --roles editor blogger</code>
-
-## Usage
-
-Example: :admin_flag Role strategy
-
-<code>$ rails g active_record:roles User admin_flag</code>
-
-Example: admin_flag Role strategy (generate migrations only)
-
-<code>$ rails g active_record:roles_migration User admin_flag</code>
-
-## Example: admin_flag
-
-:admin_flag strategy configuration:
+Configuration for _admin_flag_ strategy:
 <pre>use_roles_strategy :admin_flag
 
 class User < ActiveRecord::Base    
@@ -62,11 +46,11 @@ class User < ActiveRecord::Base
 end
 </pre>
 
-## Example : one_role
+## Strategy: one_role
 
 For strategies that use a separate Role model you must call the class method #role_class with the name of the role class
 
-:one_role strategy configuration:
+Configuration for _one_role_ strategy:
 <pre>use_roles_strategy :one_role
 class User < ActiveRecord::Base
   include Roles::ActiveRecord 
