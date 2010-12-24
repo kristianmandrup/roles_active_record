@@ -1,79 +1,42 @@
 # Roles for Active Record
 
-An Active Record implementation of [roles generic](http://github.com/kristianmandrup/roles_generic)
+Roles for Active Record is a full AR implementation of the [Roles generic API](https://github.com/kristianmandrup/roles_generic/wiki)
 
 ## Install
 
 <code>gem install roles_active_record</code>
 
-## Update!
+## Role strategies
 
-Now implements the [roles generic](http://github.com/kristianmandrup/roles_generic) Roles API
-It also implements the following Role strategies:
+The following Role strategies are available for Active Record:
 
 * admin_flag
-* many_roles
-* one_role
 * roles_mask
 * role_string
+* many_roles
+* one_role
+
+The strategies :one_role and :many_roles employ a separate Role model (table), the other strategies all use an inline attribute on the User model. 
 
 ## Rails generator
 
-Will create admin and guest roles by default
+The Roles Generator will create :admin and :guest roles by default
 
-<code>$ rails g active_record:roles User --strategy admin_flag --roles admin guest</code>
+<code>$ rails g active_record:roles User --strategy admin_flag --roles editor blogger</code>
 
 ## Usage
 
-Example: admin_flag Role strategy - generate migrations and model files
+Example: :admin_flag Role strategy
 
 <code>$ rails g active_record:roles User admin_flag</code>
 
-Example: admin_flag Role strategy - generate migrations only
+Example: admin_flag Role strategy (generate migrations only)
 
 <code>$ rails g active_record:roles_migration User admin_flag</code>
 
-## Role strategies
-
-The library comes with the following role strategies built-in:
-
-Single role:
-
-* admin_flag
-* role_string
-* one_role  
-
-Multi role:
-
-* many_roles
-* roles_mask
-
-_Note_ The strategies *one_role* and *many_roles* both use a separate Role model (roles table). The others use an inline strategy with an attribute in the User model.
-
-### Admin flag
-
-Boolean *admin_flag* on User to indicate if user role is admin or normal user 
-
-### Role string
-
-String *role_string* on User that names the role
-
-### One role
-
-*role_id* relation to *id* of *Roles* table that contain all valid roles  
-
-### Many roles
-
-*role_id* relation to *UserRoles* table that is the join table that joins a user to multiple roles in the *Roles* tables.
-
-### Roles mask
-
-*roles_mask* integer that as a bitmask indicating which roles out of a set of valid roles that the user has.
-
-Note: The following examples use RSpec to demonstrate usage scenarios.
-
 ## Example : admin_flag
 
+:admin_flag strategy configuration:
 <pre>use_roles_strategy :admin_flag
 
 class User < ActiveRecord::Base    
@@ -84,20 +47,11 @@ class User < ActiveRecord::Base
 end
 </pre>
 
-## Example : role_string
-
-<pre>use_roles_strategy :role_string
-
-class User < ActiveRecord::Base
-  include Roles::ActiveRecord 
-  
-  strategy :role_string, :default
-  valid_roles_are :admin, :guest   
-end
-</pre>
-
 ## Example : one_role
 
+For strategies that use a separate Role model you must call the class method #role_class with the name of the role class
+
+:one_role strategy configuration:
 <pre>use_roles_strategy :one_role
 class User < ActiveRecord::Base
   include Roles::ActiveRecord 
@@ -109,50 +63,15 @@ class User < ActiveRecord::Base
 end
 </pre>
     
-## Example : many_roles
+## Roles generators
 
-<pre>use_roles_strategy :many_roles
-class User < ActiveRecord::Base    
-  include Roles::ActiveRecord
-
-  strategy :many_roles, :default
-  role_class :role
-
-  valid_roles_are :admin, :guest
-end
-</pre>
-
-## Example : roles_mask
-
-<pre>use_roles_strategy :roles_mask
-
-class User < ActiveRecord::Base    
-  include Roles::ActiveRecord
-  
-  strategy :roles_mask, :default
-  valid_roles_are :admin, :guest   
-end
-
-</pre>
-
-## Rails generators
-
-The library comes with a Rails 3 generator that lets you populate a user model with a given role strategy 
-The following role strategies are included by default. Add your own by adding extra files inside the strategy folder, one file for each role strategy is recommended.
-
-* admin_flag
-* role_string
-* roles_mask
-* one_role
-* many_roles
-          
-
-### Generators
+The library comes with Rails 3 generators that let you populate a User model with a given role strategy
+The generators available are: 
 
 * active_record:roles
 * active_record:roles_migration
 
-*Roles*
+### Roles generator
 
 Apply :admin_flag Role strategy to User model using default roles :admin and :guest (default)
 
@@ -166,7 +85,7 @@ Apply :one_role Role strategy to User model without default roles, only with rol
 
 <code>$ rails g active_record:roles_migration User --strategy one_role --roles user special editor --no-default-roles</code>
 
-*Roles Migration*
+### Roles migration generator
 
 Example: admin_flag Role strategy - generate migrations and model files
 
