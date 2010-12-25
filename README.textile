@@ -1,12 +1,16 @@
 h1. Roles for Active Record
 
-Roles for Active Record is a full AR implementation of the [Roles generic API](https://github.com/kristianmandrup/roles_generic/wiki)
+This is an Active Record implementation of the "Roles generic API":https://github.com/kristianmandrup/roles_generic/wiki
+Please also see the "Roles generic README":https://github.com/kristianmandrup/roles_generic
 
-## Install
+Roles lets you add a _role strategy_ of choice to your user model. 
+Roles supports strategies with either an inline attribute on user or a separate Role model (see below). 
+
+h2. Install
 
 <code>gem install roles_active_record</code>
 
-## Install in Rails app
+h3. Install in Rails app
 
 Insert in Gemfile:
 
@@ -14,7 +18,7 @@ Insert in Gemfile:
 
 Run <code>$ bundle install</code> from terminal
 
-Alternatively install using [Cream](http://github.com/kristianmandrup/cream)
+Alternatively install using "Cream":http://github.com/kristianmandrup/cream
 
 h2. Role strategies
 
@@ -33,9 +37,13 @@ h3. Reference to Role
 * many_roles
 * one_role
 
-The strategies :one_role and :many_roles employ a separate Role model (table). 
+These strategies use a separate Role model (class and table). 
 
-## Strategy: admin_flag
+h2. Role strategy configuration
+
+The following demonstrates some examples of role strategy configuration.
+
+h3. Strategy: admin_flag
 
 <pre>use_roles_strategy :admin_flag
 
@@ -47,7 +55,7 @@ class User < ActiveRecord::Base
 end
 </pre>
 
-## Strategy: one_role
+h3. Strategy: one_role
 
 For strategies that use a separate Role model you must call the class method #role_class with the name of the role class
 
@@ -62,7 +70,7 @@ class User < ActiveRecord::Base
 end
 </pre>
     
-## Roles generators
+h2. Roles generators
 
 The library comes with Rails 3 generators that let you populate a User model with a given role strategy
 The generators available are: 
@@ -70,7 +78,7 @@ The generators available are:
 * active_record:roles
 * active_record:roles_migration
 
-### Roles generator
+h3. Roles generator
 
 Apply :admin_flag Role strategy to User model using default roles :admin and :guest (default)
 
@@ -84,7 +92,7 @@ Apply :one_role Role strategy to User model without default roles, only with rol
 
 <code>$ rails g active_record:roles_migration User --strategy one_role --roles user special editor --no-default-roles</code>
 
-### Roles migration generator
+h3. Roles migration generator
 
 Example: admin_flag Role strategy - generate migrations and model files
 
@@ -94,7 +102,7 @@ Create reverse migration
 
 <code>$ rails g active_record:roles_migration User --strategy admin_flag --reverse</code>
 
-## Note on Patches/Pull Requests
+h2. Note on Patches/Pull Requests
  
 * Fork the project.
 * Make your feature addition or bug fix.
@@ -104,6 +112,6 @@ Create reverse migration
   (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
 * Send me a pull request. Bonus points for topic branches.
 
-## Copyright
+h2. Copyright
 
 Copyright (c) 2010 Kristian Mandrup. See LICENSE for details.
