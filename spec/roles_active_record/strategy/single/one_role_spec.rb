@@ -1,5 +1,6 @@
 require 'spec_helper' 
-use_roles_strategy :one_role
+
+#use_roles_strategy :one_role
 
 def api_fixture
   load 'fixtures/one_role_setup.rb'

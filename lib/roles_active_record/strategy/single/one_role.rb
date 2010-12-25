@@ -1,11 +1,5 @@
 require 'roles_active_record/strategy/single'
 
-class Role < ActiveRecord::Base
-  scope :named, lambda{|role_names| where(:name.in => role_names.flatten)}
-  has_many :users
-  validates :name, :uniqueness => true  
-end
-
 module RoleStrategy::ActiveRecord
   module OneRole
     def self.default_role_attribute
@@ -15,7 +9,7 @@ module RoleStrategy::ActiveRecord
     def self.included base
       base.extend Roles::Generic::Role::ClassMethods
       base.extend ClassMethods
-      base.belongs_to :one_role, :foreign_key => :role_id, :class_name => 'Role'
+      # base.belongs_to :one_role, :foreign_key => :role_id, :class_name => 'Role'
     end
 
     module ClassMethods

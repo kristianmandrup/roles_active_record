@@ -45,9 +45,7 @@ The following demonstrates some examples of role strategy configuration.
 
 h3. Strategy: admin_flag
 
-<pre>use_roles_strategy :admin_flag
-
-class User < ActiveRecord::Base    
+<pre>class User < ActiveRecord::Base    
   include Roles::ActiveRecord 
     
   strategy :admin_flag, :default
@@ -59,42 +57,64 @@ h3. Strategy: one_role
 
 For strategies that use a separate Role model you must call the class method #role_class with the name of the role class
 
-<pre>use_roles_strategy :one_role
-class User < ActiveRecord::Base
+<pre>class Bruger < ActiveRecord::Base
   include Roles::ActiveRecord 
 
-  strategy :one_role, :default
-  role_class :role
-
+  strategy :one_role, :role_class => :rolle
   valid_roles_are :admin, :guest
+  ...
 end
-</pre>
-    
+</pre>    
+
+Here the role names have been customized
+
+h3. Default Role classes
+
+The default role classes can currently be included by:
+
+One role:
+
+<code>require 'roles_active_record/one_role'</code>
+
+Many roles:
+
+<code>require 'roles_active_record/many_roles'</code>
+
+In the near future I will make this an option in the configuration DSL somehow. Alternatively you can use the Roles generator, which now generates the Role classes
+and place them in app/models of your Rails app.
+
 h2. Roles generators
 
-The library comes with Rails 3 generators that let you populate a User model with a given role strategy
-The generators available are: 
+The gem includes these Rails 3 generators: 
 
 * active_record:roles
 * active_record:roles_migration
 
 h3. Roles generator
 
-Apply :admin_flag Role strategy to User model using default roles :admin and :guest (default)
+Let you populate a User model with a given role strategy
+
+Example: Apply Role strategy _admin_flag_ to the User and make the default roles :admin and :guest available
 
 <code>$ rails g active_record:roles User --strategy admin_flag</code>
 
-Apply :admin_flag Role strategy to User model using default roles and extra role :author
+Example: Apply Role strategy _role_string_ to the User and make the roles :admin, :guest and :author available
 
-<code>$ rails g active_record:roles_migration User --strategy admin_flag --roles author</code>
+<code>$ rails g active_record:roles_migration User --strategy role_string --roles author</code>
 
-Apply :one_role Role strategy to User model without default roles, only with roles :user, :special and :editor
+Example: Apply Role strategy _one_role_ to the User model with roles :user, :special and :editor
 
 <code>$ rails g active_record:roles_migration User --strategy one_role --roles user special editor --no-default-roles</code>
 
+Example: Apply Role strategy _many_role_ to the User model with default roles and customizing role class names to BrugerRolle and Rolle 
+
+<code>$ rails g active_record:roles_migration User -s one_role -r user editor -rc Rolle -urc BrugerRolle</code>
+
 h3. Roles migration generator
 
-Example: admin_flag Role strategy - generate migrations and model files
+In case you only want to generate Role migrations.
+
+Example: admin_flag Role strategy
 
 <code>$ rails g active_record:roles_migration User --strategy admin_flag</code>
 
