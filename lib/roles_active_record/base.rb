@@ -33,9 +33,9 @@ module Roles::ActiveRecord
       use_roles_strategy strategy_name
             
       if !options.kind_of? Symbol
-        @role_class_name = get_role_class(options)
+        @role_class_name = get_role_class(strategy_name, options)
       else
-        @role_class_name = default_role_class if strategies_with_role_class.include? strategy_name
+        @role_class_name = default_role_class(strategy_name) if strategies_with_role_class.include? strategy_name
       end
 
       if (options == :default || options[:config] == :default) && MAP[name]
@@ -47,12 +47,15 @@ module Roles::ActiveRecord
     
     private
 
-    def statement code_str, options
-      code_str.gsub /Role/, @role_class_name
+    def statement code_str
+      code_str.gsub /Role/, @role_class_name.to_s
     end
 
-    def default_role_class
-      return ::Role if defined? ::Role
+    def default_role_class strategy_name
+      if defined? ::Role
+        require "roles_active_record/#{strategy_name}"
+        return ::Role 
+      end
       raise Error, "Default Role class not defined"
     end
 
@@ -60,8 +63,8 @@ module Roles::ActiveRecord
       [:one_role, :embed_one_role, :many_roles,:embed_many_roles]
     end 
     
-    def get_role_class options
-      options[:role_class] ? options[:role_class].to_s.camelize.constantize : default_role_class
+    def get_role_class strategy_name, options
+      options[:role_class] ? options[:role_class].to_s.camelize.constantize : default_role_class(strategy_name)
     end
   end
 end

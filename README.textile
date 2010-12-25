@@ -80,8 +80,7 @@ Many roles:
 
 <code>require 'roles_active_record/many_roles'</code>
 
-In the near future I will make this an option in the configuration DSL somehow. Alternatively you can use the Roles generator, which now generates the Role classes
-and place them in app/models of your Rails app.
+Note: These files will automatically be included when needed under normal conditions.
 
 h2. Roles generators
 
@@ -109,6 +108,9 @@ Example: Apply Role strategy _one_role_ to the User model with roles :user, :spe
 Example: Apply Role strategy _many_role_ to the User model with default roles and customizing role class names to BrugerRolle and Rolle 
 
 <code>$ rails g active_record:roles_migration User -s one_role -r user editor -rc Rolle -urc BrugerRolle</code>
+
+For the strategies _one_role_ and _many_roles_ the generator also generates the Role and UserRole classes in the app/models dir. If you customize the names of these
+classes (using generator arguments), the customized classes will be generated and "linked up" correctly (with has and belongs_to statements).
 
 h3. Roles migration generator
 

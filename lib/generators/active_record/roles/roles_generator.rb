@@ -28,11 +28,13 @@ module ActiveRecord
             insertion_text
           end
         rescue
+          logger.debug "Model #{name} not found"
           say "Model #{name} not found"
         end
       end 
 
-      def copy_role_models                  
+      def copy_role_models
+        logger.debug 'copy_role_models'
         case strategy.to_sym  
         when :one_role
           copy_one_role_model
@@ -48,10 +50,14 @@ module ActiveRecord
       include Rails3::Assist::BasicLogger
 
       def copy_one_role_model
+        logger.debug "copy_one_role_model: #{role_class.underscore}"
+
         template 'one_role/role.rb', "app/models/#{role_class.underscore}.rb"
       end
 
       def copy_many_roles_models        
+        logger.debug "copy_many_roles_models: #{role_class.underscore} and #{user_role_class.underscore}"
+
         template 'many_roles/role.rb', "app/models/#{role_class.underscore}.rb"        
         template 'many_roles/user_role.rb', "app/models/#{user_role_class.underscore}.rb"
       end
