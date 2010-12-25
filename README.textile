@@ -1,4 +1,4 @@
-# Roles for Active Record
+h1. Roles for Active Record
 
 Roles for Active Record is a full AR implementation of the [Roles generic API](https://github.com/kristianmandrup/roles_generic/wiki)
 
@@ -16,26 +16,27 @@ Run <code>$ bundle install</code> from terminal
 
 Alternatively install using [Cream](http://github.com/kristianmandrup/cream)
 
-## Role strategies
+h2. Role strategies
 
 The following Role strategies are available for Active Record:
 
-Inline attribute on User
+h3. Inline attribute on User
 
 * admin_flag
 * roles_mask
 * role_string
 
-Reference to Role
+These strategies all use an inline attribute on the User model. 
+
+h3. Reference to Role
 
 * many_roles
 * one_role
 
-The strategies :one_role and :many_roles employ a separate Role model (table), the other strategies all use an inline attribute on the User model. 
+The strategies :one_role and :many_roles employ a separate Role model (table). 
 
 ## Strategy: admin_flag
 
-Configuration for _admin_flag_ strategy:
 <pre>use_roles_strategy :admin_flag
 
 class User < ActiveRecord::Base    
@@ -50,7 +51,6 @@ end
 
 For strategies that use a separate Role model you must call the class method #role_class with the name of the role class
 
-Configuration for _one_role_ strategy:
 <pre>use_roles_strategy :one_role
 class User < ActiveRecord::Base
   include Roles::ActiveRecord 
