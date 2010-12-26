@@ -11,5 +11,5 @@ def default_user_setup
   @admin_user.roles = :admin            
   @admin_user.save
   
-  puts "Admin roles: #{@admin_user.roles_list}, #{@admin_user.inspect}"
+  # puts "Admin roles: #{@admin_user.roles_list}, #{@admin_user.inspect}, #{Role.all}"
 end

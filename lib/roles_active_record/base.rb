@@ -38,8 +38,7 @@ module Roles::ActiveRecord
 
       # one_role reference
       if strategy_name == :one_role
-        puts "setup one_role"
-        instance_eval "belongs_to :one_role, :class_name => '#{@role_class_name}'"
+        self.belongs_to :one_role, :foreign_key => 'role_id', :class_name => @role_class_name.to_s
       end
       
       # many_roles references
@@ -67,8 +66,7 @@ module Roles::ActiveRecord
     end
 
     def default_role_class strategy_name
-      if defined? ::Role             
-        puts "require one_role"
+      if defined? ::Role
         require "roles_active_record/#{strategy_name}"
         return ::Role 
       end
