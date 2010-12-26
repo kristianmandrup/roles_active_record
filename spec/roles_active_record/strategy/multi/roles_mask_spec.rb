@@ -1,11 +1,10 @@
 require 'spec_helper'
-use_roles_strategy :roles_mask
 
-class User < ActiveRecord::Base    
+class User < ActiveRecord::Base
   include Roles::ActiveRecord
   
   strategy :roles_mask, :default
-  valid_roles_are :admin, :guest, :user   
+  valid_roles_are :admin, :guest, :user
 end
 
 def api_migrate

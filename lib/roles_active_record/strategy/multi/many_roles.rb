@@ -9,8 +9,6 @@ module RoleStrategy::ActiveRecord
     def self.included base
       base.extend Roles::Generic::Role::ClassMethods
       base.extend ClassMethods
-      base.has_many :many_roles, :through => :user_roles, :source => :role
-      base.has_many :user_roles
     end
 
     module ClassMethods

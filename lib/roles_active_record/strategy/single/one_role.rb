@@ -9,7 +9,6 @@ module RoleStrategy::ActiveRecord
     def self.included base
       base.extend Roles::Generic::Role::ClassMethods
       base.extend ClassMethods
-      # base.belongs_to :one_role, :foreign_key => :role_id, :class_name => 'Role'
     end
 
     module ClassMethods
@@ -18,12 +17,19 @@ module RoleStrategy::ActiveRecord
       end
 
       def in_any_role(*role_names)
-        joins(:one_role) & Role.named(role_names)
+        matching_roles = Role.named(role_names)
+        User.where(:role_id => matching_roles.map(&:id))
       end
     end
 
     module Implementation
       include Roles::ActiveRecord::Strategy::Single
+
+      def set_role role
+        role = role.first if role.kind_of? Array
+        role.users << self
+      end
+      alias_method :set_roles, :set_role
 
       def new_role role
         role_class.find_role(extract_role role)

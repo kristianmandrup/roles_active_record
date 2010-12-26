@@ -6,7 +6,7 @@ module Roles::Base
         begin
           role_class_name.create(:name => name.to_s) # if !role_class_name.where(:name => name.to_s).first
         rescue
-          puts "Role name: #{name} is a duplicate"
+          # puts "Role name: #{name} is a duplicate"
         end
       end
     end

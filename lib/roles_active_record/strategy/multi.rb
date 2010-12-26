@@ -14,6 +14,7 @@ module Roles::ActiveRecord
         new_roles = select_valid_roles(roles)
         if !new_roles.empty?
           self.roles = self.roles + new_roles
+          self.save
         end
       end      
       

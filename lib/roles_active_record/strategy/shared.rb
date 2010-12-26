@@ -2,20 +2,14 @@ module Roles::ActiveRecord
   module Strategy
     module Shared
       def set_role role
-        vr = new_role(role)
-        # self.send("#{role_attribute}=", vr)
-        update_attributes(role_attribute => vr)
+        update_attributes(role_attribute => new_role(role))
       end
       alias_method :set_roles, :set_role
 
       def get_role
         r = self.send(role_attribute)
-        # respond_to?(:present_role) ? present_role(r) : r
       end
-
-      def get_roles
-        r = self.send(role_attribute)
-      end
+      alias_method :get_roles, :get_role
 
       def select_valid_roles *roles
         roles.flat_uniq.select{|role| valid_role? role }

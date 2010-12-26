@@ -1,5 +1,4 @@
 require 'spec_helper'
-use_roles_strategy :admin_flag
 
 class User < ActiveRecord::Base    
   include Roles::ActiveRecord 

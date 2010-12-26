@@ -18,7 +18,9 @@ module RoleStrategy::ActiveRecord
       def in_role(role)     
         mask = calc_index(role.to_s)
         all.select do |user| 
-          (user.send(role_attribute) & mask) > 0
+          v = user.send(role_attribute) || 0
+          value = (v & mask)
+          value && value > 0
         end
       end    
 
@@ -26,7 +28,9 @@ module RoleStrategy::ActiveRecord
         all.select do |user| 
           roles.flatten.any? do |role|
             mask = calc_index(role.to_s)
-            (user.send(role_attribute) & mask) > 0
+            v = user.send(role_attribute) || 0
+            value = (v & mask)
+            value && value > 0
           end
         end
       end    

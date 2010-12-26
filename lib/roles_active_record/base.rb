@@ -12,56 +12,68 @@ module Roles::ActiveRecord
   end
 
   module ClassMethods      
-    MAP = {
-      :admin_flag   => "attr_accessor :admin_flag",
 
-      :many_roles   => "attr_accessor :many_roles",
-      :one_role     => "belongs_to :one_role, :foreign_key => :role_id, :class_name => 'Role'",
+    def valid_single_strategies
+      [:admin_flag, :one_role, :role_string]
+    end
 
-      :embed_many_roles   => "attr_accessor :many_roles",
-      :embed_one_role     => "attr_accessor :one_role",
+    def valid_multi_strategies
+      [:many_roles, :roles_mask, :role_strings]
+    end
 
-      :roles_mask   => "attr_accessor :roles_mask",
-      :role_string  => "attr_accessor :role_string",
-      :role_strings => "attr_accessor :role_strings",
-      :roles_string => "attr_accessor :roles_string"
-    }    
+    def strategies_with_role_class
+      [:one_role, :many_roles]
+    end 
+
+    def valid_strategies
+      valid_single_strategies + valid_multi_strategies
+    end
     
     def strategy name, options = {}
       strategy_name = name.to_sym
-      raise ArgumentError, "Unknown role strategy #{strategy_name}" if !MAP.keys.include? strategy_name
+      raise ArgumentError, "Unknown role strategy #{strategy_name}" if !valid_strategies.include? strategy_name
       use_roles_strategy strategy_name
             
-      if !options.kind_of? Symbol
-        @role_class_name = get_role_class(strategy_name, options)
-      else
-        @role_class_name = default_role_class(strategy_name) if strategies_with_role_class.include? strategy_name
+      set_role_class(strategy_name, options) if strategies_with_role_class.include? strategy_name
+
+      # one_role reference
+      if strategy_name == :one_role
+        puts "setup one_role"
+        instance_eval "belongs_to :one_role, :class_name => '#{@role_class_name}'"
       end
-
-      if (options == :default || options[:config] == :default) && MAP[name]
-        instance_eval statement(MAP[strategy_name])
-      end       
-
+      
+      # many_roles references
+      if strategy_name == :many_roles
+        user_roles_class = options[:user_roles_class] if options.kind_of? Hash 
+        user_roles_class ||= 'user_roles'
+      
+        instance_eval %{
+          has_many :many_roles, :through => :#{user_roles_class}, :source => :#{@role_class_name.to_s.underscore}
+          has_many :#{user_roles_class}
+        }
+      end
+      
       set_role_strategy name, options
     end    
     
     private
+
+    def set_role_class strategy_name, options = {}
+      @role_class_name = !options.kind_of?(Symbol) ? get_role_class(strategy_name, options) : default_role_class(strategy_name)
+    end
 
     def statement code_str
       code_str.gsub /Role/, @role_class_name.to_s
     end
 
     def default_role_class strategy_name
-      if defined? ::Role
+      if defined? ::Role             
+        puts "require one_role"
         require "roles_active_record/#{strategy_name}"
         return ::Role 
       end
-      raise Error, "Default Role class not defined"
+      raise "Default Role class not defined"
     end
-
-    def strategies_with_role_class
-      [:one_role, :embed_one_role, :many_roles,:embed_many_roles]
-    end 
     
     def get_role_class strategy_name, options
       options[:role_class] ? options[:role_class].to_s.camelize.constantize : default_role_class(strategy_name)

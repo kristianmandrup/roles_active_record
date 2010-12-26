@@ -1,5 +1,4 @@
 require 'spec_helper'
-use_roles_strategy :many_roles
 
 def api_migrate
   migrate('many_roles')
