@@ -62,11 +62,20 @@ For strategies that use a separate Role model you must call the class method #ro
 
   strategy :one_role, :role_class => :rolle
   valid_roles_are :admin, :guest
-  ...
 end
 </pre>    
 
-Here the role names have been customized
+h3. Strategy: many_roles
+
+Both the Role class and join class between User and Role can be customized using options
+
+<pre>class Bruger < ActiveRecord::Base
+  include Roles::ActiveRecord 
+
+  strategy :one_role, :role_class => :rolle, :user_role_class => :bruger_rolle
+  valid_roles_are :admin, :guest
+end
+</pre>    
 
 h3. Default Role classes
 

@@ -113,9 +113,8 @@ module ActiveRecord
 
       def strategy_options
         if role_class != 'Role' || user_role_class != 'UserRole' && role_ref_strategy?
-          return ":role_class => '#{role_class}', :user_role_class => 'user_role_class'"
+          return ":role_class => :#{options[:role_class] || 'role'}, :user_role_class => :#{options[:user_role_class] || 'user_role'}"
         end
-        ":default"
       end
     
       def insertion_text
