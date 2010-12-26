@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{roles_active_record}
-  s.version = "0.4.0"
+  s.version = "0.4.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kristian Mandrup"]
-  s.date = %q{2010-12-25}
+  s.date = %q{2010-12-26}
   s.description = %q{Makes it easy to set a role strategy on your User model in Active Record}
   s.email = %q{kmandrup@gmail.com}
   s.extra_rdoc_files = [
@@ -54,17 +54,6 @@ Gem::Specification.new do |s|
     "lib/views/_multi_role_selector.erb.html",
     "lib/views/_single_role_selector.erb.html",
     "roles_active_record.gemspec",
-    "sandbox/Rakefile",
-    "sandbox/add_role_to_users_migration.erb",
-    "sandbox/create_roles_migration.erb",
-    "sandbox/create_user_roles_migration.erb",
-    "sandbox/database.log",
-    "sandbox/database.yml",
-    "sandbox/development.sqlite3",
-    "sandbox/migrate/201002508_create_roles.rb",
-    "sandbox/migrate/20102507_create_users.rb",
-    "sandbox/model_base.rb",
-    "sandbox/test.rb",
     "spec/db/database.yml",
     "spec/fixtures/many_roles_setup.rb",
     "spec/fixtures/many_roles_setup_unique_check.rb",
