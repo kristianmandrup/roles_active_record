@@ -20,6 +20,10 @@ Run <code>$ bundle install</code> from terminal
 
 Alternatively install using "Cream":http://github.com/kristianmandrup/cream
 
+h2. Important!
+
+Please use gem version < 4. I just discovered my latest push contains a few bugs that need to be fixed ASAP. Sorry! 
+
 h2. Role strategies
 
 The following Role strategies are available for Active Record:
