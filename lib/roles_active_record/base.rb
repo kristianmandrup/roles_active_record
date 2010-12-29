@@ -18,7 +18,7 @@ module Roles::ActiveRecord
     end
 
     def valid_multi_strategies
-      [:many_roles, :roles_mask, :role_strings]
+      [:many_roles, :roles_mask]
     end
 
     def strategies_with_role_class
