@@ -1,5 +1,8 @@
 require 'spec_helper'
 
+class Role < ActiveRecord::Base
+end
+
 def api_migrate
   migrate('many_roles')
 end

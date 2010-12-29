@@ -4,4 +4,6 @@ class <%= role_class %> < ActiveRecord::Base
   has_many :<%= user_role_class.pluralize.underscore %>
 
   validates :name, :uniqueness => true
+  
+  extend RoleClass::ClassMethods  
 end

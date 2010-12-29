@@ -1,5 +1,8 @@
 require 'spec_helper' 
 
+class Role < ActiveRecord::Base
+end
+
 def api_fixture
   load 'fixtures/one_role_setup.rb'
 end
