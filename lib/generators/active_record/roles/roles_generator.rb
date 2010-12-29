@@ -13,6 +13,7 @@ module ActiveRecord
 
       class_option :roles,            :type => :array,  :aliases => "-r", :default => [], :desc => "Valid roles"
       class_option :role_class,       :type => :string, :aliases => "-rc", :default => 'Role', :desc => "Role class"
+      class_option :user_class,       :type => :string, :aliases => "-uc", :default => 'User', :desc => "User class"
       class_option :user_role_class,  :type => :string, :aliases => "-urc", :default => 'UserRole', :desc => "User Role join class"
       
       class_option :default_roles,    :type => :boolean,  :default => true, :desc => "Use default roles :admin and :base"
