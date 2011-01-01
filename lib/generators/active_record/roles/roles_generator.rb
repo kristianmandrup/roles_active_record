@@ -9,7 +9,7 @@ module ActiveRecord
       # argument name
       
       class_option :strategy, :type => :string, :aliases => "-s", :default => 'role_string', 
-                   :desc => "Role strategy to use (admin_flag, role_string, roles_string, role_strings, one_role, many_roles, roles_mask)"
+                   :desc => "Role strategy to use (admin_flag, role_string, one_role, many_roles, roles_mask)"
 
       class_option :roles,            :type => :array,  :aliases => "-r", :default => [], :desc => "Valid roles"
       class_option :role_class,       :type => :string, :aliases => "-rc", :default => 'Role', :desc => "Role class"
@@ -24,16 +24,27 @@ module ActiveRecord
       def apply_role_strategy
         logger.add_logfile :logfile => logfile if logfile
         logger.debug "apply_role_strategy for : #{strategy} in model #{name}"
+
+        if !valid_strategy?
+          say "Strategy '#{strategy}' is not valid, at least not for Active Record"
+          return 
+        end
+
+        if !has_model? :user                
+          say "Could not apply roles strategy to #{name} model since the model file was not found"
+          return 
+        end
+
         begin
           insert_into_model name do
             insertion_text
           end
+      
+          copy_role_models if roles_model_strategy?
         rescue
-          logger.debug "Model #{name} not found"
-          say "Model #{name} not found"
-        end 
-        
-        copy_role_models if roles_model_strategy?
+          # logger.debug "Error applying roles strategy to #{name}"
+          say "Error applying roles strategy to #{name}"
+        end
       end 
             
       protected                  
@@ -64,6 +75,14 @@ module ActiveRecord
         template 'many_roles/role.rb', "app/models/#{role_class.underscore}.rb"        
         template 'many_roles/user_role.rb', "app/models/#{user_role_class.underscore}.rb"
       end
+
+      def valid_strategy?
+        valid_strategies.include? strategy.to_sym
+      end
+
+      def valid_strategies
+        [:admin_flag, :role_string, :one_role, :many_roles, :roles_mask]
+      end        
 
       def roles_model_strategy?
         [:one_role, :many_roles].include? strategy.to_sym
