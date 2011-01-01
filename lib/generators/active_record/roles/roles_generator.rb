@@ -31,8 +31,16 @@ module ActiveRecord
         rescue
           logger.debug "Model #{name} not found"
           say "Model #{name} not found"
-        end
+        end 
+        
+        copy_role_models if roles_model_strategy?
       end 
+            
+      protected                  
+
+      extend Rails3::Assist::UseMacro
+      use_orm :active_record
+      include Rails3::Assist::BasicLogger
 
       def copy_role_models
         logger.debug 'copy_role_models'
@@ -43,12 +51,6 @@ module ActiveRecord
           copy_many_roles_models
         end
       end
-            
-      protected                  
-
-      extend Rails3::Assist::UseMacro
-      use_orm :active_record
-      include Rails3::Assist::BasicLogger
 
       def copy_one_role_model
         logger.debug "copy_one_role_model: #{role_class.underscore}"
@@ -62,6 +64,10 @@ module ActiveRecord
         template 'many_roles/role.rb', "app/models/#{role_class.underscore}.rb"        
         template 'many_roles/user_role.rb', "app/models/#{user_role_class.underscore}.rb"
       end
+
+      def roles_model_strategy?
+        [:one_role, :many_roles].include? strategy.to_sym
+      end  
 
       def user_class
         options[:user_class].classify || 'User'
