@@ -26,12 +26,12 @@ module ActiveRecord
         logger.debug "apply_role_strategy for : #{strategy} in model #{name}"
 
         if !valid_strategy?
-          say "Strategy '#{strategy}' is not valid, at least not for Active Record"
+          say "Strategy '#{strategy}' is not valid, at least not for Active Record", :red
           return 
         end
 
         if !has_model? :user                
-          say "Could not apply roles strategy to #{name} model since the model file was not found"
+          say "Could not apply roles strategy to #{name} model since the model file was not found", :red
           return 
         end
 
@@ -50,7 +50,9 @@ module ActiveRecord
       protected                  
 
       extend Rails3::Assist::UseMacro
+      
       use_orm :active_record
+      
       include Rails3::Assist::BasicLogger
 
       def copy_role_models
