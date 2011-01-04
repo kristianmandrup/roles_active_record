@@ -4,7 +4,9 @@ module Roles::Base
   end
 end
 
-module Roles::ActiveRecord  
+module Roles::ActiveRecord
+  mattr_accessor :warning
+    
   def self.included(base) 
     base.extend Roles::Base
     base.extend ClassMethods
@@ -70,7 +72,7 @@ module Roles::ActiveRecord
         require "roles_active_record/#{strategy_name}"
         return ::Role 
       end
-      raise "Default Role class not defined"
+      raise "Default Role class not defined" if @@warning
     end
     
     def get_role_class strategy_name, options

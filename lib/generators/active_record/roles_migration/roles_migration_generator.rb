@@ -61,7 +61,7 @@ module ActiveRecord
       end
 
       def strategies
-        [:admin_flag, :role_string, :one_role, :many_roles, :roles_mask]          
+        [:admin_flag, :role_string, :one_role, :many_roles, :roles_mask]
       end
        
       def reverse?
