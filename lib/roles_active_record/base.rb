@@ -5,7 +5,7 @@ module Roles::Base
 end
 
 module Roles::ActiveRecord
-  mattr_accessor :warning
+  mattr_accessor :warnings_on
     
   def self.included(base) 
     base.extend Roles::Base
@@ -40,24 +40,37 @@ module Roles::ActiveRecord
 
       # one_role reference
       if strategy_name == :one_role
-        self.belongs_to :one_role, :foreign_key => 'role_id', :class_name => @role_class_name.to_s
+        self.belongs_to :one_role, :foreign_key => 'role_id', :class_name => role_class_name.to_s
       end
       
       # many_roles references
-      if strategy_name == :many_roles
-        user_roles_class = options[:user_roles_class] if options.kind_of? Hash 
-        user_roles_class ||= 'user_roles'
-      
-        instance_eval %{
-          has_many :many_roles, :through => :#{user_roles_class}, :source => :#{@role_class_name.to_s.underscore}
-          has_many :#{user_roles_class}
-        }
+      if strategy_name == :many_roles      
+        urc = user_roles_class options
+        instance_eval many_roles_stmt(urc)
       end
       
       set_role_strategy name, options
     end    
     
     private
+     
+    def many_roles_stmt urc
+      %{
+        has_many :many_roles, :through => :#{urc}, :source => :#{role_class_name.to_s.underscore}
+        has_many :#{urc}
+      }
+    end
+
+    def role_class_name options = {}
+      return @role_class_name if @role_class_name  
+      return options[:role_class] if options.kind_of?(Hash) && options[:role_class] 
+      'Role'    
+    end
+
+    def user_roles_class options
+      return options[:user_roles_class] if options.kind_of?(Hash) && options[:user_roles_class]
+      'user_roles'
+    end
 
     def set_role_class strategy_name, options = {}
       @role_class_name = !options.kind_of?(Symbol) ? get_role_class(strategy_name, options) : default_role_class(strategy_name)
@@ -72,7 +85,7 @@ module Roles::ActiveRecord
         require "roles_active_record/#{strategy_name}"
         return ::Role 
       end
-      raise "Default Role class not defined" if @@warning
+      raise "Default Role class not defined" if Roles::ActiveRecord.warnings_on
     end
     
     def get_role_class strategy_name, options
