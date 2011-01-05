@@ -4,34 +4,33 @@ require 'logging_assist'
 module ActiveRecord 
   module Generators
     class RolesGenerator < Rails::Generators::NamedBase      
-      desc "Add role strategy to a model" 
+      desc "Add role strategy to a User model" 
 
-      # argument name
+      argument     :user_class,         :type => :string,   :default => 'User',           :desc => "User class name"
       
-      class_option :strategy, :type => :string, :aliases => "-s", :default => 'role_string', 
+      class_option :strategy,           :type => :string,   :aliases => "-s",   :default => 'role_string', 
                    :desc => "Role strategy to use (admin_flag, role_string, one_role, many_roles, roles_mask)"
 
-      class_option :roles,            :type => :array,  :aliases => "-r", :default => [], :desc => "Valid roles"
-      class_option :role_class,       :type => :string, :aliases => "-rc", :default => 'Role', :desc => "Role class"
-      class_option :user_class,       :type => :string, :aliases => "-uc", :default => 'User', :desc => "User class"
-      class_option :user_role_class,  :type => :string, :aliases => "-urc", :default => 'UserRole', :desc => "User Role join class"
+      class_option :roles,              :type => :array,    :aliases => "-r",   :default => [],         :desc => "Valid roles"
+      class_option :role_class,         :type => :string,   :aliases => "-rc",  :default => 'Role',     :desc => "Role class"
+      class_option :user_role_class,    :type => :string,   :aliases => "-urc", :default => 'UserRole', :desc => "User Role join class"
       
-      class_option :default_roles,    :type => :boolean,  :default => true, :desc => "Use default roles :admin and :base"
-      class_option :logfile,          :type => :string,   :default => nil,   :desc => "Logfile location"
+      class_option :default_roles,      :type => :boolean,  :aliases => "-dr",  :default => true,       :desc => "Use default roles :admin and :base"
+      class_option :logfile,            :type => :string,   :aliases => "-l",   :default => nil,        :desc => "Logfile location"
 
       source_root File.dirname(__FILE__) + '/templates'
 
       def apply_role_strategy
         logger.add_logfile :logfile => logfile if logfile
-        logger.debug "apply_role_strategy for : #{strategy} in model #{name}"
+        logger.debug "apply_role_strategy for : #{strategy} in model #{user_class}"
 
         if !valid_strategy?
           say "Strategy '#{strategy}' is not valid, at least not for Active Record", :red
           return 
         end
 
-        if !has_model? :user                
-          say "Could not apply roles strategy to #{name} model since the model file was not found", :red
+        if !has_model? user_class                
+          say "Could not apply roles strategy to #{user_class} model since the model file was not found", :red
           return 
         end
 
@@ -43,7 +42,7 @@ module ActiveRecord
           copy_role_models if roles_model_strategy?
         rescue
           # logger.debug "Error applying roles strategy to #{name}"
-          say "Error applying roles strategy to #{name}"
+          say "Error applying roles strategy to #{user_class}"
         end
       end 
             
@@ -90,10 +89,6 @@ module ActiveRecord
         [:one_role, :many_roles].include? strategy.to_sym
       end  
 
-      def user_class
-        options[:user_class].classify || 'User'
-      end
-
       def role_class
         options[:role_class].classify || 'Role'
       end
@@ -104,10 +99,6 @@ module ActiveRecord
 
       def logfile
         options[:logfile]
-      end
-
-      def user_class
-        name || 'User'
       end
 
       def orm
