@@ -34,7 +34,8 @@ module ActiveRecord
           return 
         end
 
-        begin
+        begin                    
+          logger.debug "Trying to insert roles code into #{user_class}"
           insert_into_model name do
             insertion_text
           end
