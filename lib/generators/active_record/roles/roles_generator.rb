@@ -1,6 +1,6 @@
 require 'rails3_artifactor'
 require 'logging_assist'
-require 'active_record/roles/core_ext'
+require 'generators/active_record/roles/core_ext'
 
 module ActiveRecord 
   module Generators
