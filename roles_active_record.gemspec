@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{roles_active_record}
-  s.version = "0.4.4"
+  s.version = "0.4.5"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kristian Mandrup"]
-  s.date = %q{2011-01-04}
+  s.date = %q{2011-01-09}
   s.description = %q{Makes it easy to set a role strategy on your User model in Active Record}
   s.email = %q{kmandrup@gmail.com}
   s.extra_rdoc_files = [
@@ -21,11 +21,13 @@ Gem::Specification.new do |s|
     ".rspec",
     "Gemfile",
     "LICENSE",
+    "NOTES.textile",
     "README.textile",
     "Rakefile",
     "VERSION",
     "config/database.yml",
     "development.sqlite3",
+    "lib/generators/active_record/roles/core_ext.rb",
     "lib/generators/active_record/roles/roles_generator.rb",
     "lib/generators/active_record/roles/templates/many_roles/role.rb",
     "lib/generators/active_record/roles/templates/many_roles/user_role.rb",
