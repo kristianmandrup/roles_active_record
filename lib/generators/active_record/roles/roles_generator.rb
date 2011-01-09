@@ -1,5 +1,6 @@
 require 'rails3_artifactor'
 require 'logging_assist'
+require 'active_record/roles/core_ext'
 
 module ActiveRecord 
   module Generators
@@ -36,7 +37,7 @@ module ActiveRecord
 
         begin                    
           logger.debug "Trying to insert roles code into #{user_class}"
-          insert_into_model name do
+          insert_into_model name.as_filename do
             insertion_text
           end
       
