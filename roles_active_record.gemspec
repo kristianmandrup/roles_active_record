@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{roles_active_record}
-  s.version = "0.4.5"
+  s.version = "0.4.6"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kristian Mandrup"]
-  s.date = %q{2011-01-09}
+  s.date = %q{2011-01-10}
   s.description = %q{Makes it easy to set a role strategy on your User model in Active Record}
   s.email = %q{kmandrup@gmail.com}
   s.extra_rdoc_files = [
@@ -142,7 +142,7 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<require_all>, ["~> 1.2.0"])
       s.add_runtime_dependency(%q<roles_generic>, ["~> 0.3.2"])
       s.add_runtime_dependency(%q<rails3_artifactor>, [">= 0.3.1"])
-      s.add_runtime_dependency(%q<logging_assist>, [">= 0.1.6"])
+      s.add_runtime_dependency(%q<logging_assist>, [">= 0.2.0"])
       s.add_development_dependency(%q<rspec>, [">= 2.0.1"])
       s.add_development_dependency(%q<database_cleaner>, [">= 0.5"])
       s.add_development_dependency(%q<generator-spec>, [">= 0.7.0"])
@@ -154,7 +154,7 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<require_all>, ["~> 1.2.0"])
       s.add_runtime_dependency(%q<roles_generic>, [">= 0.3.2"])
       s.add_runtime_dependency(%q<rails3_artifactor>, [">= 0.3.1"])
-      s.add_runtime_dependency(%q<logging_assist>, [">= 0.1.6"])
+      s.add_runtime_dependency(%q<logging_assist>, [">= 0.2.0"])
     else
       s.add_dependency(%q<activerecord>, [">= 3.0.1"])
       s.add_dependency(%q<activesupport>, [">= 3.0.1"])
@@ -164,7 +164,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<require_all>, ["~> 1.2.0"])
       s.add_dependency(%q<roles_generic>, ["~> 0.3.2"])
       s.add_dependency(%q<rails3_artifactor>, [">= 0.3.1"])
-      s.add_dependency(%q<logging_assist>, [">= 0.1.6"])
+      s.add_dependency(%q<logging_assist>, [">= 0.2.0"])
       s.add_dependency(%q<rspec>, [">= 2.0.1"])
       s.add_dependency(%q<database_cleaner>, [">= 0.5"])
       s.add_dependency(%q<generator-spec>, [">= 0.7.0"])
@@ -176,7 +176,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<require_all>, ["~> 1.2.0"])
       s.add_dependency(%q<roles_generic>, [">= 0.3.2"])
       s.add_dependency(%q<rails3_artifactor>, [">= 0.3.1"])
-      s.add_dependency(%q<logging_assist>, [">= 0.1.6"])
+      s.add_dependency(%q<logging_assist>, [">= 0.2.0"])
     end
   else
     s.add_dependency(%q<activerecord>, [">= 3.0.1"])
@@ -187,7 +187,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<require_all>, ["~> 1.2.0"])
     s.add_dependency(%q<roles_generic>, ["~> 0.3.2"])
     s.add_dependency(%q<rails3_artifactor>, [">= 0.3.1"])
-    s.add_dependency(%q<logging_assist>, [">= 0.1.6"])
+    s.add_dependency(%q<logging_assist>, [">= 0.2.0"])
     s.add_dependency(%q<rspec>, [">= 2.0.1"])
     s.add_dependency(%q<database_cleaner>, [">= 0.5"])
     s.add_dependency(%q<generator-spec>, [">= 0.7.0"])
@@ -199,7 +199,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<require_all>, ["~> 1.2.0"])
     s.add_dependency(%q<roles_generic>, [">= 0.3.2"])
     s.add_dependency(%q<rails3_artifactor>, [">= 0.3.1"])
-    s.add_dependency(%q<logging_assist>, [">= 0.1.6"])
+    s.add_dependency(%q<logging_assist>, [">= 0.2.0"])
   end
 end
 
