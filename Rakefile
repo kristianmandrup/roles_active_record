@@ -20,7 +20,7 @@ begin
     gem.add_dependency "roles_generic",   '>= 0.3.2'  
     
     gem.add_dependency 'rails3_artifactor', '>= 0.3.1'
-    gem.add_dependency 'logging_assist',    '>= 0.1.6'
+    gem.add_dependency 'logging_assist',    '>= 0.2.0'
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new

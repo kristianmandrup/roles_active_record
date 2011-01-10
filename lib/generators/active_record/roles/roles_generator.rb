@@ -26,25 +26,25 @@ module ActiveRecord
         logger.debug "apply_role_strategy for : #{strategy} in model #{user_class}"
 
         if !valid_strategy?
-          say "Strategy '#{strategy}' is not valid, at least not for Active Record", :red
+          logger.error "Strategy '#{strategy}' is not valid, at least not for Active Record"
           return 
         end
 
-        if !has_model? user_class                
-          say "Could not apply roles strategy to #{user_class} model since the model file was not found", :red
+        if !has_model? user_file                
+          logger.error "Could not apply roles strategy to #{user_class} model since the model file was not found"
           return 
         end
 
         begin                    
           logger.debug "Trying to insert roles code into #{user_class}"
-          insert_into_model name.as_filename do
+          insert_into_model user_file do
             insertion_text
           end
       
           copy_role_models if roles_model_strategy?
         rescue
           # logger.debug "Error applying roles strategy to #{name}"
-          say "Error applying roles strategy to #{user_class}"
+          logger.error "Error applying roles strategy to #{user_class}"
         end
       end 
             
@@ -55,6 +55,18 @@ module ActiveRecord
       use_orm :active_record
       
       include Rails3::Assist::BasicLogger
+
+      def user_file
+        user_class.as_filename
+      end
+
+      def role_file
+        role_class.as_filename
+      end
+
+      def user_role_file
+        role_class.as_filename
+      end
 
       def copy_role_models
         logger.debug 'copy_role_models'
@@ -67,16 +79,15 @@ module ActiveRecord
       end
 
       def copy_one_role_model
-        logger.debug "copy_one_role_model: #{role_class.underscore}"
-
-        template 'one_role/role.rb', "app/models/#{role_class.underscore}.rb"
+        logger.debug "copying role model for one_role strategy: #{role_file}"
+        template 'one_role/role.rb', "app/models/#{role_file}.rb"
       end
 
       def copy_many_roles_models        
-        logger.debug "copy_many_roles_models: #{role_class.underscore} and #{user_role_class.underscore}"
+        logger.debug "copying role models for many_roles strategy: #{role_file} and #{user_file}"
 
-        template 'many_roles/role.rb', "app/models/#{role_class.underscore}.rb"        
-        template 'many_roles/user_role.rb', "app/models/#{user_role_class.underscore}.rb"
+        template 'many_roles/role.rb', "app/models/#{role_file}.rb"        
+        template 'many_roles/user_role.rb', "app/models/#{user_role_file}.rb"
       end
 
       def valid_strategy?
@@ -134,7 +145,7 @@ module ActiveRecord
 
       def strategy_options
         if role_class != 'Role' || user_role_class != 'UserRole' && role_ref_strategy?
-          return ", :role_class => :#{options[:role_class] || 'role'}, :user_role_class => :#{options[:user_role_class] || 'user_role'}"
+          return ", :role_class => '#{role_class}', :user_role_class => '#{user_role_class}'"
         end
         ''        
       end
