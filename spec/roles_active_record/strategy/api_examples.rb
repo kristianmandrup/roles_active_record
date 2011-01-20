@@ -176,6 +176,18 @@ describe "Roles for Active Record: #{api_name}" do
       @guest_user.roles = :guest            
     end    
   end 
+
+  describe '#role=' do
+    it "should set user role to :admin" do
+      @guest_user.role = :admin      
+      @guest_user.has_role?(:admin).should be_true
+      @guest_user.has_role?(:guest).should be_false
+      @guest_user.role = :guest            
+      @guest_user.has_role?(:guest).should be_true
+      @guest_user.has_role?(:admin).should be_false
+    end    
+  end 
+
   
   describe '#exchange_roles' do
     it "should exchange user role :user with role :admin" do

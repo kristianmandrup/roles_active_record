@@ -65,7 +65,7 @@ module ActiveRecord
       end
 
       def user_role_file
-        role_class.as_filename
+        user_role_class.as_filename
       end
 
       def copy_role_models
@@ -79,12 +79,12 @@ module ActiveRecord
       end
 
       def copy_one_role_model
-        logger.debug "copying role model for one_role strategy: #{role_file}"
+        logger.debug "generating role model for one_role strategy: #{role_file}"
         template 'one_role/role.rb', "app/models/#{role_file}.rb"
       end
 
       def copy_many_roles_models        
-        logger.debug "copying role models for many_roles strategy: #{role_file} and #{user_file}"
+        logger.debug "generating role models for many_roles strategy: #{role_file} and #{user_file}"
 
         template 'many_roles/role.rb', "app/models/#{role_file}.rb"        
         template 'many_roles/user_role.rb', "app/models/#{user_role_file}.rb"
