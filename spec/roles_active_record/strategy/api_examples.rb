@@ -185,6 +185,10 @@ describe "Roles for Active Record: #{api_name}" do
       @guest_user.role = :guest            
       @guest_user.has_role?(:guest).should be_true
       @guest_user.has_role?(:admin).should be_false
+      
+      u = User.new
+      u.role = :admin
+      u.has_role?(:admin).should be_true
     end    
   end 
 
