@@ -81,15 +81,19 @@ module Roles::ActiveRecord
     end
 
     def default_role_class strategy_name
-      if !defined? ::Role
-        require "roles_active_record/#{strategy_name}"
-        puts "Using default Role classes since they have not yet been defined" if Roles::ActiveRecord.warnings_on
-        return ::Role 
-      end
-      if defined? ::Role      
-        return ::Role
-      end
-      'Role'
+      require "roles_active_record/#{strategy_name}"
+      # if !defined? ::Role
+      #   require "roles_active_record/#{strategy_name}"
+      #   puts "Using default Role classes since they have not yet been defined" # if Roles::ActiveRecord.warnings_on
+      #   return ::Role 
+      # end
+      # if defined? ::Role      
+      #   
+      #   puts "Role is defined"
+      #   return ::Role
+      # end
+      # puts "Late binding!!!"
+      ::Role
     end
     
     def get_role_class strategy_name, options
