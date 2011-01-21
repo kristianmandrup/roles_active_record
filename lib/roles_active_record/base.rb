@@ -85,7 +85,8 @@ module Roles::ActiveRecord
         require "roles_active_record/#{strategy_name}"
         return ::Role 
       end
-      raise "Default Role class not defined" if Roles::ActiveRecord.warnings_on
+      puts "Default Role class not yet defined" if Roles::ActiveRecord.warnings_on
+      'Role'
     end
     
     def get_role_class strategy_name, options
