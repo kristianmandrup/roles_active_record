@@ -21,7 +21,7 @@ describe "Roles for Active Record: #{api_name}" do
       end
     end
   end
-
+  
   describe '#in_any_role' do
     it "should return first user matching role" do        
       if User.respond_to? :in_roles
@@ -175,6 +175,13 @@ describe "Roles for Active Record: #{api_name}" do
       @guest_user.has_role?(:admin).should be_true      
       @guest_user.roles = :guest            
     end    
+    
+    context 'the guest user' do
+      it "should be valid after setting the roles" do
+        @guest_user.should be_valid 
+        lambda {@guest_user.save!}.should_not raise_error        
+      end
+    end    
   end 
   
   describe '#role=' do
@@ -182,16 +189,22 @@ describe "Roles for Active Record: #{api_name}" do
       @guest_user.role = :admin      
       @guest_user.has_role?(:admin).should be_true
       @guest_user.has_role?(:guest).should be_false
-      @guest_user.role = :guest            
+      @guest_user.role = :guest
       @guest_user.has_role?(:guest).should be_true
       @guest_user.has_role?(:admin).should be_false
       
-      u = User.new
+      u = User.new :name => 'kris'
       u.role = :admin
       u.has_role?(:admin).should be_true
     end    
-  end 
-  
+
+    context 'the guest user' do
+      it "should be valid after setting the role" do
+        @guest_user.should be_valid
+        lambda {@guest_user.save!}.should_not raise_error
+      end
+    end
+  end   
   
   describe '#exchange_roles' do
     it "should exchange user role :user with role :admin" do
@@ -211,6 +224,13 @@ describe "Roles for Active Record: #{api_name}" do
         @admin_user.has?(:admin).should be_false        
       end
     end    
+    
+    context 'the admin user' do
+      it "should be valid after setting the role" do
+        @admin_user.should be_valid
+        lambda {@admin_user.save!}.should_not raise_error
+      end
+    end    
   end 
   
   describe '#remove_roles' do
@@ -225,5 +245,15 @@ describe "Roles for Active Record: #{api_name}" do
       @guest_user.remove_role :admin
       @guest_user.has_role?(:admin).should_not be_true
     end  
+    
+    context 'the guest user' do
+      it "should be valid after setting the role" do
+        @guest_user.should be_valid
+      end 
+      
+      it "should be able to save the valid user and not raise an error" do
+        lambda {@guest_user.save!}.should_not raise_error
+      end
+    end        
   end 
 end

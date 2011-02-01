@@ -25,9 +25,11 @@ module RoleStrategy::ActiveRecord
     module Implementation
       include Roles::ActiveRecord::Strategy::Single
 
-      def set_role role
+      def set_role role 
+        # set_empty_role
         role = role.first if role.kind_of? Array
-        role.users << self
+        self.send("#{role_attribute}=", role)
+        # role.users << self
       end
       alias_method :set_roles, :set_role
 
