@@ -255,6 +255,7 @@ describe "Roles for Active Record: #{api_name}" do
       if @empty_user.class.role_strategy.multiplicity == :multi
         @empty_user.remove_all_roles!
         @empty_user.has_no_roles?.should be_true
+        @empty_user.has_any_roles?.should be_false
         @empty_user.add_roles :admin, :guest
         @empty_user.has_roles?(:admin, :guest).should be_true
       end
