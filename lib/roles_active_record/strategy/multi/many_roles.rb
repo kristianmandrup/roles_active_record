@@ -45,6 +45,7 @@ module RoleStrategy::ActiveRecord
       def set_empty_roles
         self.send("#{role_attribute}=", [])
       end
+      alias_method :set_empty_role, :set_empty_roles
     end
 
     extend Roles::Generic::User::Configuration

@@ -6,6 +6,18 @@ module Roles::ActiveRecord
       end
       alias_method :set_roles, :set_role
 
+      def remove_all_roles!
+        set_empty_role        
+      end
+
+      def has_no_roles?
+        get_role.empty?
+      end
+
+      def has_any_roles?
+        !has_no_roles?
+      end
+
       def get_role
         r = self.send(role_attribute)
       end

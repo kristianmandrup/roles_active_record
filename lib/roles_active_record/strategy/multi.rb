@@ -2,7 +2,9 @@ require 'roles_active_record/strategy/shared'
 
 module Roles::ActiveRecord
   module Strategy
-    module Multi     
+    module Multi
+      include Shared
+                 
       # assign multiple roles
       def roles=(*role_names)
         extracted_roles = extract_roles(role_names)

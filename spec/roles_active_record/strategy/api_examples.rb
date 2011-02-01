@@ -232,6 +232,44 @@ describe "Roles for Active Record: #{api_name}" do
       end
     end    
   end 
+
+  describe '#add_role' do
+    it "should add user role :admin and :guest using #add_roles" do
+      @empty_user.add_role :admin
+      @admin_user.has_roles?(:admin).should be_true
+    end    
+     
+    context 'the empty user' do
+      it "should be valid after setting the role" do
+        @empty_user.should be_valid
+      end 
+      
+      it "should be able to save the valid user and not raise an error" do
+        lambda {@empty_user.save!}.should_not raise_error
+      end
+    end        
+  end 
+
+  describe '#add_roles' do
+    it "should add user role :admin and :guest using #add_roles" do      
+      if @empty_user.class.role_strategy.multiplicity == :multi
+        @empty_user.remove_all_roles!
+        @empty_user.has_no_roles?.should be_true
+        @empty_user.add_roles :admin, :guest
+        @empty_user.has_roles?(:admin, :guest).should be_true
+      end
+    end    
+     
+    context 'the empty user' do
+      it "should be valid after setting the role" do
+        @empty_user.should be_valid
+      end 
+      
+      it "should be able to save the valid user and not raise an error" do
+        lambda {@empty_user.save!}.should_not raise_error
+      end
+    end        
+  end 
   
   describe '#remove_roles' do
     it "should remove user role :admin using #remove_roles" do

@@ -1,4 +1,7 @@
 def default_user_setup
+  @empty_user = User.create(:name => 'Empty user')  
+  @empty_user.save     
+  
   @guest_user = User.create(:name => 'Guest user')  
   @guest_user.add_roles :guest
   @guest_user.save     
