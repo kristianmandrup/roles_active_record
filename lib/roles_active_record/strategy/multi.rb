@@ -48,7 +48,7 @@ module Roles::ActiveRecord
       end
 
       def get_roles
-        self.send(role_attribute)
+        self.send(role_attribute) || []
       end      
     end
   end
