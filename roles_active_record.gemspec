@@ -25,8 +25,6 @@ Gem::Specification.new do |s|
     "README.textile",
     "Rakefile",
     "VERSION",
-    "config/database.yml",
-    "development.sqlite3",
     "lib/generators/active_record/roles/core_ext.rb",
     "lib/generators/active_record/roles/roles_generator.rb",
     "lib/generators/active_record/roles/templates/many_roles/role.rb",
