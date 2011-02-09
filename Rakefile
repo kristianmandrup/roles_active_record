@@ -10,16 +10,17 @@ begin
     gem.rubygems_version = '1.5.0'
     
     # See Gemfile for regular dependencies
-    gem.add_dependency 'roles_generic', '>= 2.0.1'
-    gem.add_dependency 'require_all',   '~> 1.2.0'
-    gem.add_dependency 'sugar-high',    '~> 0.3.4'
-    gem.add_dependency 'meta_where',    '~> 1.0.1'
-        
     # COMMENTED OUT TO AVOID DUPLICATION WITH GEMFILE:
     #   https://github.com/technicalpickles/jeweler/issues#issue/152    
-    # gem.add_development_dependency 'database_cleaner',  '>= 0.5'
-    # gem.add_development_dependency "rspec",             '>= 2.0.1'
-    # gem.add_development_dependency "generator-spec",    '>= 0.7.2'
+
+    # gem.add_dependency 'roles_generic', '>= 2.0.1'
+    # gem.add_dependency 'require_all',   '~> 1.2.0'
+    # gem.add_dependency 'sugar-high',    '~> 0.3.4'
+    # gem.add_dependency 'meta_where',    '~> 1.0.1'
+        
+    gem.add_development_dependency 'database_cleaner',  '>= 0.5'
+    gem.add_development_dependency "rspec",             '>= 2.0.1'
+    gem.add_development_dependency "generator-spec",    '>= 0.7.2'
 
     
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
