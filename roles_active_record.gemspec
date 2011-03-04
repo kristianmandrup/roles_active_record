@@ -55,6 +55,7 @@ Gem::Specification.new do |s|
     "lib/roles_active_record/strategy/single/role_string.rb",
     "lib/views/_multi_role_selector.erb.html",
     "lib/views/_single_role_selector.erb.html",
+    "roles_active_record.gemspec",
     "spec/db/database.yml",
     "spec/fixtures/many_roles_setup.rb",
     "spec/fixtures/many_roles_setup_unique_check.rb",
