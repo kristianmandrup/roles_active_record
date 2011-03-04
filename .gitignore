@@ -21,3 +21,5 @@ pkg
 ## PROJECT::SPECIFIC
 logging.log
 tmp
+
+*.sqlite3
