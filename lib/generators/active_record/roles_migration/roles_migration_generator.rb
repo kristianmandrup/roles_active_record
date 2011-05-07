@@ -54,7 +54,9 @@ module ActiveRecord
         reverse_migration!(generated_migration) if generated_migration && reverse?
       end
 
-      include Rails3::Assist::BasicLogger
+      def logging?
+        options[:logging]
+      end
 
       def logfile
         options[:logfile]
