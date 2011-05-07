@@ -1,10 +1,9 @@
 require 'migration_assist'
-require 'logging_assist'
 
 module ActiveRecord 
   module Generators
     class RolesMigrationGenerator < Rails::Generators::NamedBase 
-      include Rails3::Migration::Assist
+      include RailsAssist::Migration
       
       desc "Generates user role migrations" 
 
@@ -16,6 +15,7 @@ module ActiveRecord
       class_option :roles, :type => :array, :aliases => "-r", :default => [], :desc => "Valid roles"
       class_option :default_roles, :type => :boolean, :default => true, :desc => "Use default roles :admin and :base"
       class_option :logfile, :type => :string,   :default => nil,   :desc => "Logfile location"
+      class_option :logging,            :type => :boolean,  :aliases => "-l",   :default => false,      :desc => "Logging on?"
       class_option :reverse, :type => :boolean, :alias => "-r", :default => false, :desc => "Create a remove migration for reversing a strategy"
 
       def self.source_root
@@ -23,7 +23,12 @@ module ActiveRecord
       end
 
       def main
-        logger.add_logfile :logfile => logfile if logfile
+        if logging?
+          require 'logging_assist'
+          self.class.send :include, Rails3::Assist::BasicLogger
+          logger.add_logfile :logfile => logfile if logfile
+        end
+
         valid_strategy?
         run_migration
       end
@@ -32,7 +37,7 @@ module ActiveRecord
 
       def valid_strategy?
         if !strategies.include?(strategy.to_sym)
-          logger.info "Unknown role strategy #{strategy}"
+          logger.info "Unknown role strategy #{strategy}"  if logging?
           raise ArgumentError, "Unknown role strategy #{strategy}"
         end
       end
@@ -46,7 +51,7 @@ module ActiveRecord
       end
 
       def run_migration            
-        logger.debug "Create migration for role_strategy: #{strategy}"
+        logger.debug "Create migration for role_strategy: #{strategy}" if logging?
         migration_name = "add_#{strategy}_strategy"
         target_migration_name = reverse? ? reverse_migration_name(migration_name) : migration_name
         migration_template "#{migration_name}.erb", "db/migrate/#{target_migration_name}" 
@@ -54,12 +59,12 @@ module ActiveRecord
         reverse_migration!(generated_migration) if generated_migration && reverse?
       end
 
-      def logging?
-        options[:logging]
-      end
-
       def logfile
         options[:logfile]
+      end
+
+      def logging?
+        options[:logging]
       end
 
       def strategies
