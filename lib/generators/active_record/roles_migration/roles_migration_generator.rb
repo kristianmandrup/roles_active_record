@@ -15,6 +15,7 @@ module ActiveRecord
       class_option :roles, :type => :array, :aliases => "-r", :default => [], :desc => "Valid roles"
       class_option :default_roles, :type => :boolean, :default => true, :desc => "Use default roles :admin and :base"
       class_option :logfile, :type => :string,   :default => nil,   :desc => "Logfile location"
+      class_option :logging,            :type => :boolean,  :aliases => "-l",   :default => false,      :desc => "Logging on?"
       class_option :reverse, :type => :boolean, :alias => "-r", :default => false, :desc => "Create a remove migration for reversing a strategy"
 
       def self.source_root
@@ -77,7 +78,10 @@ module ActiveRecord
       def strategy
         options[:strategy]
       end
-      
+
+      def logging?
+        options[:logging]
+      end
     end
   end
 end
