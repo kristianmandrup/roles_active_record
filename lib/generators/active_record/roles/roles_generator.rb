@@ -55,7 +55,7 @@ module ActiveRecord
             
       protected                  
 
-      extend Rails3::Assist::UseMacro
+      extend RailsAssist::UseMacro
       
       use_orm :active_record      
 
