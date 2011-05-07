@@ -1,10 +1,9 @@
 require 'migration_assist'
-require 'logging_assist'
 
 module ActiveRecord 
   module Generators
     class RolesMigrationGenerator < Rails::Generators::NamedBase 
-      include Rails3::Migration::Assist
+      include RailsAssist::Migration
       
       desc "Generates user role migrations" 
 
@@ -23,7 +22,12 @@ module ActiveRecord
       end
 
       def main
-        logger.add_logfile :logfile => logfile if logfile
+        if logging?
+          require 'logging_assist'
+          self.class.send :include, Rails3::Assist::BasicLogger
+          logger.add_logfile :logfile => logfile if logfile
+        end
+
         valid_strategy?
         run_migration
       end
@@ -32,7 +36,7 @@ module ActiveRecord
 
       def valid_strategy?
         if !strategies.include?(strategy.to_sym)
-          logger.info "Unknown role strategy #{strategy}"
+          logger.info "Unknown role strategy #{strategy}"  if logging?
           raise ArgumentError, "Unknown role strategy #{strategy}"
         end
       end
@@ -46,15 +50,13 @@ module ActiveRecord
       end
 
       def run_migration            
-        logger.debug "Create migration for role_strategy: #{strategy}"
+        logger.debug "Create migration for role_strategy: #{strategy}" if logging?
         migration_name = "add_#{strategy}_strategy"
         target_migration_name = reverse? ? reverse_migration_name(migration_name) : migration_name
         migration_template "#{migration_name}.erb", "db/migrate/#{target_migration_name}" 
         generated_migration = latest_migration_file(migration_dir, target_migration_name)
         reverse_migration!(generated_migration) if generated_migration && reverse?
       end
-
-      include Rails3::Assist::BasicLogger
 
       def logfile
         options[:logfile]
@@ -75,6 +77,7 @@ module ActiveRecord
       def strategy
         options[:strategy]
       end
+      
     end
   end
 end
