@@ -5,7 +5,7 @@ require 'generators/active_record/roles/roles_generator'
 
 # root_dir = Rails3::Assist::Directory.rails_root
 # root_dir = File.join(Rails.application.config.root_dir, 'rails')
-root_dir = Rails.root
+root_dir = Rails.root.to_s
 
 describe 'roles generator' do
   describe 'ORM: active_record' do  

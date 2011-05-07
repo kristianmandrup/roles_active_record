@@ -2,11 +2,12 @@ require 'migration_spec_helper'
 
 require_generator :active_record => :roles_migration
 
-root_dir = Rails::Migration::Assist.rails_root_dir
-Rails3::Assist::Directory.rails_root = root_dir
-Rails::Migration::Assist.orm = :active_record
-
-puts "root_dir: #{root_dir}"
+# root_dir = Rails::Migration::Assist.rails_root_dir
+# RailsAssist::Directory.rails_root = root_dir
+# 
+# Rails::Migration::Assist.orm = :active_record
+# 
+# puts "root_dir: #{root_dir}"
 
 describe 'roles_migration_generator' do
   use_orm     :active_record
