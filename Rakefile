@@ -18,6 +18,7 @@ begin
     gem.add_development_dependency 'database_cleaner',  '>= 0.6'
     gem.add_development_dependency "rspec",             '>= 2.4.1'
     gem.add_development_dependency "generator-spec",    '>= 0.7.3'
+    gem.add_development_dependency 'migration_assist',  '~> 0.2.0'
 
     gem.add_dependency 'roles_generic', '>= 0.3.8'
     gem.add_dependency 'require_all',   '~> 1.2.0'
