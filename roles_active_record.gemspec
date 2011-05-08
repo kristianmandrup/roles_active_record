@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{roles_active_record}
-  s.version = "0.4.7"
+  s.version = "0.4.8"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Kristian Mandrup"]
-  s.date = %q{2011-03-04}
+  s.authors = [%q{Kristian Mandrup}]
+  s.date = %q{2011-05-08}
   s.description = %q{Makes it easy to set a role strategy on your User model in Active Record}
   s.email = %q{kmandrup@gmail.com}
   s.extra_rdoc_files = [
@@ -91,8 +91,8 @@ Gem::Specification.new do |s|
     "spec/spec_helper.rb"
   ]
   s.homepage = %q{http://github.com/kristianmandrup/roles_active_record}
-  s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.6.1}
+  s.require_paths = [%q{lib}]
+  s.rubygems_version = %q{1.8.0}
   s.summary = %q{Implementation of Roles generic API for Active Record}
   s.test_files = [
     "spec/fixtures/many_roles_setup.rb",
@@ -136,6 +136,7 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<database_cleaner>, [">= 0.6"])
       s.add_development_dependency(%q<rspec>, [">= 2.4.1"])
       s.add_development_dependency(%q<generator-spec>, [">= 0.7.3"])
+      s.add_development_dependency(%q<migration_assist>, ["~> 0.2.0"])
       s.add_runtime_dependency(%q<roles_generic>, [">= 0.3.8"])
       s.add_runtime_dependency(%q<require_all>, ["~> 1.2.0"])
       s.add_runtime_dependency(%q<sugar-high>, ["~> 0.4.0"])
@@ -144,6 +145,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<database_cleaner>, [">= 0.6"])
       s.add_dependency(%q<rspec>, [">= 2.4.1"])
       s.add_dependency(%q<generator-spec>, [">= 0.7.3"])
+      s.add_dependency(%q<migration_assist>, ["~> 0.2.0"])
       s.add_dependency(%q<roles_generic>, [">= 0.3.8"])
       s.add_dependency(%q<require_all>, ["~> 1.2.0"])
       s.add_dependency(%q<sugar-high>, ["~> 0.4.0"])
@@ -153,6 +155,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<database_cleaner>, [">= 0.6"])
     s.add_dependency(%q<rspec>, [">= 2.4.1"])
     s.add_dependency(%q<generator-spec>, [">= 0.7.3"])
+    s.add_dependency(%q<migration_assist>, ["~> 0.2.0"])
     s.add_dependency(%q<roles_generic>, [">= 0.3.8"])
     s.add_dependency(%q<require_all>, ["~> 1.2.0"])
     s.add_dependency(%q<sugar-high>, ["~> 0.4.0"])
