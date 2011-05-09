@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{roles_active_record}
-  s.version = "0.4.8"
+  s.version = "0.4.9"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = [%q{Kristian Mandrup}]
-  s.date = %q{2011-05-08}
+  s.date = %q{2011-05-09}
   s.description = %q{Makes it easy to set a role strategy on your User model in Active Record}
   s.email = %q{kmandrup@gmail.com}
   s.extra_rdoc_files = [
