@@ -24,7 +24,6 @@ describe 'Roles Generic API' do
     end
   end
 
-
   # it "should be true that a User that includes Roles::Generic has a complete Roles::Generic interface" do
   #   # mutation API
   #   [:roles=, :role=, :add_roles, :add_role, :remove_role, :remove_roles, :exchange_roles, :exchange_role].each do |api_method|

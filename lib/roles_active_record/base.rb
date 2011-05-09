@@ -10,10 +10,28 @@ module Roles::ActiveRecord
   def self.included(base) 
     base.extend Roles::Base
     base.extend ClassMethods
+    base.send :include, InstanceMethods
     base.orm_name = :active_record
   end
 
+  module InstanceMethods
+    def default_role?
+      has_role?(default_role)
+    end
+
+    def default_role
+      self.class.default_role
+    end
+  end
+
   module ClassMethods      
+    def default_role
+      self.to_s.gsub(/(.+)User$/, '\1').underscore.to_sym
+    end 
+
+    def default_role= drole
+      @default_role = drole
+    end 
 
     def valid_single_strategies
       [:admin_flag, :one_role, :role_string]

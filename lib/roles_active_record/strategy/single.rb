@@ -9,7 +9,8 @@ end
 module Roles::ActiveRecord
   module Strategy
     module Single
-      include Shared            
+      include Shared
+      
       # assigns first valid role from list of roles
       def add_roles *role_names
         new_roles = select_valid_roles(role_names) 

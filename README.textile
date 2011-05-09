@@ -50,8 +50,15 @@ h3. Strategy: admin_flag
     
   strategy :admin_flag, :default
   valid_roles_are :admin, :guest
+  
+  def initialize attributes = {}
+    super
+    add_role default_role
+  end  
 end
 </pre>
+
+Here the initializer initially sets the role of the user tothe default_role, which is the available role matching the class name (or nil in case no match)
 
 h3. Strategy: one_role
 

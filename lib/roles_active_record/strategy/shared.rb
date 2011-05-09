@@ -1,6 +1,6 @@
 module Roles::ActiveRecord
   module Strategy
-    module Shared
+    module Shared                  
       def set_role role
         update_attributes(role_attribute => new_role(role))
       end

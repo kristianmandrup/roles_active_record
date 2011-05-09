@@ -1,6 +1,12 @@
 h1. Changelog
 
-h2. V. 0.4.6.5
+h2. May 9, 2011
 
-* Feb 9/2011 - merged johanlunds/master to support Rubygems 1.5 and resolve dependencies
+*version 0.4.9*
+
+- Added #default_role and #default_role instance methods and #default_role and #default_role= class methods.
+- The #default_role class method attempts to set the default role of the class to an available role that matches the class name, or the class name with User at the end removed (fx GuestUser becomes :guest). 
+
+
+
 
