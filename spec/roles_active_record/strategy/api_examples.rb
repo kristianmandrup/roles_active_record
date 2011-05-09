@@ -47,6 +47,29 @@ describe "Roles for Active Record: #{api_name}" do
       @admin_user.class.respond_to?(class_api_method).should be_true
     end
   end 
+
+  describe '#default_role' do
+    it "should be true that the default user role is empty when no valid role matches class name in lowercase (no :user)" do      
+      @default_user.class.default_role.should == :user      
+      @default_user.default_role.should == :user
+      @default_user.has_role?(:user).should be_true
+    end
+  
+    it "should be true that the User class has a valid role of :guest" do      
+      @default_user.valid_role?(:user).should be_true
+    end
+  end
+
+  describe '#default_role?' do
+    it "should be true that the default User has a role that is the default role" do      
+      @default_user.default_role?.should be_true
+    end
+
+    it "should not be that after changing the role it is still the default role" do
+      @default_user.role = :admin
+      @default_user.default_role?.should be_false
+    end  
+  end 
   
   describe '#valid_role?' do
     it "should be true that the admin user has a valid role of :guest" do      
@@ -197,7 +220,7 @@ describe "Roles for Active Record: #{api_name}" do
       u.role = :admin
       u.has_role?(:admin).should be_true
     end    
-
+  
     context 'the guest user' do
       it "should be valid after setting the role" do
         @guest_user.should be_valid
@@ -232,7 +255,7 @@ describe "Roles for Active Record: #{api_name}" do
       end
     end    
   end 
-
+  
   describe '#add_role' do
     it "should add user role :admin and :guest using #add_roles" do
       @empty_user.add_role :admin
@@ -249,7 +272,7 @@ describe "Roles for Active Record: #{api_name}" do
       end
     end        
   end 
-
+  
   describe '#add_roles' do
     it "should add user role :admin and :guest using #add_roles" do      
       if @empty_user.class.role_strategy.multiplicity == :multi

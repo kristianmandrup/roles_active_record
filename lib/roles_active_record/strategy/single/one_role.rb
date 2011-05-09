@@ -28,6 +28,7 @@ module RoleStrategy::ActiveRecord
       def set_role role 
         # set_empty_role
         role = role.first if role.kind_of? Array
+        # puts "set_role: #{role.inspect}"        
         self.send("#{role_attribute}=", role)
         # role.users << self
       end

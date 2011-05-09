@@ -10,7 +10,7 @@ module Roles::Base
         end
       end
     end
-  end  
+  end
 end
 
 module RoleClass
