@@ -1,0 +1,7 @@
+class AddRoleStringStrategy < ActiveRecord::Migration
+  def change           
+    change_table :<%= table_name %> do |t|
+      t.string :role_string, :default => 'guest', :null => false
+    end
+  end
+end

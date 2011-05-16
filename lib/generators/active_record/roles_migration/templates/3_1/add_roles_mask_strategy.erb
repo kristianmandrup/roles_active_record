@@ -1,0 +1,7 @@
+class AddRolesMaskStrategy < ActiveRecord::Migration
+  def change           
+    change_table :<%= table_name %> do |t|
+      t.integer :roles_mask, :default => 1
+    end
+  end
+end

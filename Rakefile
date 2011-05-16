@@ -22,8 +22,13 @@ begin
 
     gem.add_dependency 'roles_generic', '>= 0.3.8'
     gem.add_dependency 'require_all',   '~> 1.2.0'
-    gem.add_dependency 'sugar-high',    '~> 0.4.0'
-    gem.add_dependency 'meta_where',    '>= 1.0.1'
+    gem.add_dependency 'sugar-high',    '~> 0.4.1'
+
+    # gem.add_dependency 'arel',          '~> 2.0.7'
+    # gem.add_dependency 'active_record', '~> 3.0.7'
+    # gem.add_dependency 'active_support','~> 3.0.7'
+
+    gem.add_dependency 'meta_where',    '~> 1.0.4'
             
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end

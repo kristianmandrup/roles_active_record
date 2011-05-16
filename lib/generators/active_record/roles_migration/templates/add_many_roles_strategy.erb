@@ -24,6 +24,8 @@ class AddManyRolesStrategy < ActiveRecord::Migration
         t.integer :role_id
         t.timestamps
       end
+      
+      add_index :<%= table_name.singularize %>_roles, [:<%= table_name.singularize %>_id, :role_id], :unique => true  
     end
 
     def drop_user_roles

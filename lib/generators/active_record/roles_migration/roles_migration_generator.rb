@@ -18,8 +18,10 @@ module ActiveRecord
       class_option :logging,            :type => :boolean,  :aliases => "-l",   :default => false,      :desc => "Logging on?"
       class_option :reverse, :type => :boolean, :alias => "-r", :default => false, :desc => "Create a remove migration for reversing a strategy"
 
-      def self.source_root
-        @source_root ||= File.expand_path("../templates", __FILE__)
+      def self.source_root 
+        # use new reversible migrations with #change method for Rails 3.1
+        postfix = Rails::VERSION.include?('3.1') ? "/3_1" : ""
+        @source_root ||= File.expand_path("../templates#{postfix}", __FILE__)
       end
 
       def main

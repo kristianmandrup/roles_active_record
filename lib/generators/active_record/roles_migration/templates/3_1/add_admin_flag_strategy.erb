@@ -1,0 +1,7 @@
+class AddAdminFlagStrategy < ActiveRecord::Migration
+  def change           
+    change_table :<%= table_name %> do |t|
+      t.boolean :admin_flag, :default => false
+    end
+  end
+end

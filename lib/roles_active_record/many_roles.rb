@@ -4,7 +4,7 @@ class Role < ActiveRecord::Base
   has_many :user_roles
   validates :name, :uniqueness => true
   
-  extend RoleClass::ClassMethods  
+  extend RoleClass::ClassMethods
 end
 
 class UserRole < ActiveRecord::Base

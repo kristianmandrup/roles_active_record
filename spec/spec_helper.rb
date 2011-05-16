@@ -1,4 +1,4 @@
-require 'rspec/core'
+require 'rspec'
 # require 'autotest/rspec2'
 require 'rails'
 require 'active_record'

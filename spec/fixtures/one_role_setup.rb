@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   
   def initialize attributes = {}
     super
-#    role = default_role
-    add_role default_role
+    # add_role default_role
+    set_default_role
   end
 end

@@ -1,0 +1,38 @@
+class AddManyRolesStrategy < ActiveRecord::Migration
+  def change
+    create_roles
+    create_user_roles
+    add_index :roles, :name, :unique => true      
+    
+    # insert_roles
+  end
+
+  protected
+
+  def create_user_roles
+    create_table :<%= table_name.singularize %>_roles do |t|
+      t.integer :<%= table_name.singularize %>_id
+      t.integer :role_id
+      t.timestamps
+    end
+    
+    add_index :<%= table_name.singularize %>_roles, [:<%= table_name.singularize %>_id, :role_id], :unique => true  
+  end
+
+  def create_roles
+    create_table :roles do |t|
+      t.string  :name
+      t.timestamps
+    end
+  end
+  
+  def insert_roles
+    <%- roles_to_add.each do |role| -%>
+      begin
+        Role.create(:name => '<%= role %>')
+      rescue
+      end
+    <%- end -%>
+  end    
+end
+
