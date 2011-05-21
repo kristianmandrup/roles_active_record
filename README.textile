@@ -20,6 +20,14 @@ Run <code>$ bundle install</code> from terminal
 
 Alternatively install using "Cream":http://github.com/kristianmandrup/cream
 
+h2. You need help?
+
+Please post questions in the "rails-roles":http://groups.google.com/group/rails-roles group. 
+
+If you have issues or bug reports, please post these as Issues on the github. 
+I recommend you try to fix any problems you might encounter by forking the project, implement the fix by writing specs
+and make a pull request (so I can integrate the fix into my master). Thanks! 
+
 h2. Role strategies
 
 The following Role strategies are available for Active Record:
