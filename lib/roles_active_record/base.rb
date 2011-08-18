@@ -91,7 +91,7 @@ module Roles::ActiveRecord
     end
 
     def role_table
-      role_class_name.name.underscore.pluralize
+      role_class_name.to_s.underscore.pluralize
     end 
 
     def user_roles_class options
