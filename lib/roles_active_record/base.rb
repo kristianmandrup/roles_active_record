@@ -86,6 +86,14 @@ module Roles::ActiveRecord
       'Role'
     end
 
+    def role_arel_table
+      Arel::Table.new role_table
+    end
+
+    def role_table
+      role_class_name.name.underscore.pluralize
+    end 
+
     def user_roles_class options
       return options[:user_roles_class] if options.kind_of?(Hash) && options[:user_roles_class]
       'user_roles'
