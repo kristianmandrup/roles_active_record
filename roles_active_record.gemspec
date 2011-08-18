@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{roles_active_record}
-  s.version = "0.5.0"
+  s.version = "0.5.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = [%q{Kristian Mandrup}]
-  s.date = %q{2011-08-17}
+  s.date = %q{2011-08-18}
   s.description = %q{Makes it easy to set a role strategy on your User model in Active Record}
   s.email = %q{kmandrup@gmail.com}
   s.extra_rdoc_files = [
@@ -107,47 +107,44 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<activerecord>, [">= 3.0.1"])
       s.add_runtime_dependency(%q<activesupport>, [">= 3.0.1"])
       s.add_runtime_dependency(%q<arel>, [">= 2.0"])
-      s.add_runtime_dependency(%q<meta_where>, [">= 1.0.1"])
-      s.add_runtime_dependency(%q<sugar-high>, [">= 0.5.0"])
+      s.add_runtime_dependency(%q<sugar-high>, [">= 0.5.3"])
       s.add_runtime_dependency(%q<require_all>, ["~> 1.2.0"])
       s.add_runtime_dependency(%q<roles_generic>, [">= 0.5.0"])
       s.add_runtime_dependency(%q<rails_artifactor>, [">= 0.4.0"])
-      s.add_development_dependency(%q<rspec>, [">= 2.5.0"])
+      s.add_development_dependency(%q<rspec>, [">= 2.4.0"])
       s.add_development_dependency(%q<generator-spec>, [">= 0.7.5"])
       s.add_development_dependency(%q<database_cleaner>, [">= 0.6.7"])
       s.add_development_dependency(%q<jeweler>, [">= 1.6.4"])
-      s.add_development_dependency(%q<bundler>, [">= 1.0.10"])
+      s.add_development_dependency(%q<bundler>, [">= 1.0.1"])
       s.add_development_dependency(%q<rdoc>, [">= 0"])
     else
       s.add_dependency(%q<activerecord>, [">= 3.0.1"])
       s.add_dependency(%q<activesupport>, [">= 3.0.1"])
       s.add_dependency(%q<arel>, [">= 2.0"])
-      s.add_dependency(%q<meta_where>, [">= 1.0.1"])
-      s.add_dependency(%q<sugar-high>, [">= 0.5.0"])
+      s.add_dependency(%q<sugar-high>, [">= 0.5.3"])
       s.add_dependency(%q<require_all>, ["~> 1.2.0"])
       s.add_dependency(%q<roles_generic>, [">= 0.5.0"])
       s.add_dependency(%q<rails_artifactor>, [">= 0.4.0"])
-      s.add_dependency(%q<rspec>, [">= 2.5.0"])
+      s.add_dependency(%q<rspec>, [">= 2.4.0"])
       s.add_dependency(%q<generator-spec>, [">= 0.7.5"])
       s.add_dependency(%q<database_cleaner>, [">= 0.6.7"])
       s.add_dependency(%q<jeweler>, [">= 1.6.4"])
-      s.add_dependency(%q<bundler>, [">= 1.0.10"])
+      s.add_dependency(%q<bundler>, [">= 1.0.1"])
       s.add_dependency(%q<rdoc>, [">= 0"])
     end
   else
     s.add_dependency(%q<activerecord>, [">= 3.0.1"])
     s.add_dependency(%q<activesupport>, [">= 3.0.1"])
     s.add_dependency(%q<arel>, [">= 2.0"])
-    s.add_dependency(%q<meta_where>, [">= 1.0.1"])
-    s.add_dependency(%q<sugar-high>, [">= 0.5.0"])
+    s.add_dependency(%q<sugar-high>, [">= 0.5.3"])
     s.add_dependency(%q<require_all>, ["~> 1.2.0"])
     s.add_dependency(%q<roles_generic>, [">= 0.5.0"])
     s.add_dependency(%q<rails_artifactor>, [">= 0.4.0"])
-    s.add_dependency(%q<rspec>, [">= 2.5.0"])
+    s.add_dependency(%q<rspec>, [">= 2.4.0"])
     s.add_dependency(%q<generator-spec>, [">= 0.7.5"])
     s.add_dependency(%q<database_cleaner>, [">= 0.6.7"])
     s.add_dependency(%q<jeweler>, [">= 1.6.4"])
-    s.add_dependency(%q<bundler>, [">= 1.0.10"])
+    s.add_dependency(%q<bundler>, [">= 1.0.1"])
     s.add_dependency(%q<rdoc>, [">= 0"])
   end
 end
