@@ -10,11 +10,11 @@ describe "Roles for Active Record: #{api_name}" do
   require "roles_active_record/strategy/user_setup.rb"
 
   before do
-    default_user_setup    
+    default_user_setup
   end
 
   describe '#in_role' do
-    it "should return first user matching role" do        
+    it "should return first user matching role" do
       if User.respond_to? :in_role
         User.in_role(:guest).first.name.should == 'Guest user'
         User.in_role(:admin).first.name.should == 'Admin user'
@@ -23,9 +23,9 @@ describe "Roles for Active Record: #{api_name}" do
   end
   
   describe '#in_any_role' do
-    it "should return first user matching role" do        
+    it "should return first user matching role" do
       if User.respond_to? :in_roles
-        User.in_any_role(:guest, :user).first.name.should == 'Guest user'      
+        User.in_any_role(:guest, :user).first.name.should == 'Guest user'
         User.in_any_role(:admin, :guest).should be_empty
       end
     end

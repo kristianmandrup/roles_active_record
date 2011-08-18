@@ -3,7 +3,7 @@ require 'rspec'
 require 'rails'
 require 'active_record'
 require 'arel'
-require 'meta_where'
+# require 'meta_where'
 require 'yaml'
 require 'logger'
 require 'database_cleaner'
@@ -19,7 +19,7 @@ SPEC_DIR = File.dirname(__FILE__)
 
 path = SPEC_DIR + '/db/database.yml'
 dbfile = File.open(path)
-dbconfig = YAML::load(dbfile)  
+dbconfig = YAML::load(dbfile)
 ActiveRecord::Base.establish_connection(dbconfig)
 ActiveRecord::Base.logger = Logger.new(STDERR)
 

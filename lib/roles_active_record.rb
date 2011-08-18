@@ -1,10 +1,10 @@
 require 'roles_generic'
-require 'require_all'    
+require 'require_all'
 require 'set'
 require 'sugar-high/array'
 require 'rails'
 require 'arel'
-require 'meta_where'
+# require 'meta_where'
 require 'yaml'
 require 'logger'
 

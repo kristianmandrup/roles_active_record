@@ -1,5 +1,5 @@
 class Role < ActiveRecord::Base
-  scope :named, lambda{|role_names| where(:name.in => role_names.flatten)}
+  scope :named, lambda{|role_names| where(:name => role_names.flatten)}
   has_many :users, :through => :user_roles
   has_many :user_roles
   validates :name, :uniqueness => true

@@ -15,8 +15,8 @@ end
 
 module RoleClass
   module ClassMethods
-    def find_roles(*role_names) 
-      where(:name.in => role_names.flatten)
+    def find_roles(*role_names)
+      where(:name => role_names.flatten)
     end
 
     def find_role role_name

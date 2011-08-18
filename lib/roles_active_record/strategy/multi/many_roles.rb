@@ -17,7 +17,11 @@ module RoleStrategy::ActiveRecord
       end
 
       def in_any_role(*role_names)
-        joins(:many_roles) & Role.named(role_names.to_strings)
+        mr = Arel::Table.new :roles
+        res = joins(:roles).where(mr[:name] => role_names.flatten.to_strings).to_sql
+        puts "sql:" + res.to_sql
+        puts "result:" + res.inspect
+        res
       end
     end
 
