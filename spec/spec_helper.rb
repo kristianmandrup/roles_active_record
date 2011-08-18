@@ -21,7 +21,7 @@ path = SPEC_DIR + '/db/database.yml'
 dbfile = File.open(path)
 dbconfig = YAML::load(dbfile)
 ActiveRecord::Base.establish_connection(dbconfig)
-ActiveRecord::Base.logger = Logger.new(STDERR)
+#ActiveRecord::Base.logger = Logger.new(STDERR)
 
 # Attempts at trying to make database_cleaner accept another location for database.yml
 # ------------------------------------------------------------------------------------
